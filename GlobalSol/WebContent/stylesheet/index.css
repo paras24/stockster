@@ -1,0 +1,76 @@
+
+#maindiv {
+	margin-top: 70px;
+	margin-left: 15%;
+	width: 70%;
+	margin-bottom: 60px;
+	overflow-y:visible;
+}
+
+#content {
+	margin-top: 2%;
+	min-height: 500px;
+	border-style: ;
+	border-radius: 10px;
+	box-shadow: gray 0.4em 0.4em 0.4em 0.4em;
+}
+
+#tabs {
+	overflow: hidden;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#tabs li {
+	float: left;
+	margin: 0 -15px 0 0;
+}
+
+#tabs a {
+	float: left;
+	position: relative;
+	padding: 0 40px;
+	height: 0;
+	line-height: 30px;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #fff;
+	border-right: 30px solid transparent;
+	border-bottom: 30px solid #3D3D3D;
+	border-bottom-color: #777\9;
+	opacity: .3;
+	filter: alpha(opacity =         30);
+}
+
+#tabs a:hover,#tabs a:focus {
+	border-bottom-color: #2ac7e1;
+	opacity: 1;
+	filter: alpha(opacity =         100);
+}
+
+#tabs a:focus {
+	outline: 0;
+}
+
+#tabs #current {
+	z-index: 3;
+	border-bottom-color: #3d3d3d;
+	opacity: 1;
+	filter: alpha(opacity =         100);
+}
+
+#tabs a {
+	height: 0;
+	line-height: 30px;
+	border-right: 30px solid transparent;
+	border-bottom: 30px solid #3D3D3D;
+}
+
+#floatingleft {
+	height: 40px;
+	position: absolute;
+	margin-left: 80px;
+	margin-top: 150px;
+}
