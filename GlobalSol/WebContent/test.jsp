@@ -15,11 +15,10 @@ $(function()
 					url : "JobReader",
 					dataType : "json",
 					success : function(data) {
-						alert(data);
-						if (data.Jobs.length) {
-							i=1;
+						if (data.Messages.length) {
+							alert(1);
 							$.each(data.Messages, function(i, data) {
-								alert(i++);
+								
 								var msg_data = "<div id='msg"+data.id+"'>"
 										+ data.title + "</div>";
 								$(msg_data).appendTo("#content");

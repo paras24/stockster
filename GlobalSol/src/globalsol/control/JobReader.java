@@ -44,7 +44,8 @@ public class JobReader extends HttpServlet {
 			jobsData = service.GetMessages();
 			Gson gson = new Gson();
 			String output = gson.toJson(jobsData);
-			out.println("{\"Jobs\":"+output+"}");
+			System.out.println(output);
+			out.println("{\"Messages\":"+output+"}");
 		}
 		catch (Exception ex)
 		{
