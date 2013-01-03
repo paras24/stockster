@@ -41,6 +41,7 @@ public class JobsDAOImpl implements JobsDAO{
 				jobs.setDescription(rs.getString("description"));
 				jobs.setDetails(rs.getString("details"));
 				jobsList.add(jobs);
+				System.out.println("printin data @ JsonDAOImpl "+jobs.getTitle());
 			}
 
 		}

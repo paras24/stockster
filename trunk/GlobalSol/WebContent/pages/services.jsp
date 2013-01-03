@@ -4,22 +4,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="../javascript/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
 	$.ajax
 	({
 			type : "GET",
-			url : "/JobReader",
+			url : "JobReader",
 			dataType : "json",
 			success : function(data) {
-				alert(data);
 				if (data.Messages.length) {
-					i=0;
-					$.each(data.Messages, function(i, data) {
-						alert(++i);
+					$.each(data.Messages, function(i, data) {					
 						var msg_data = "<div id='msg"+data.id+"'>"
-								+ data.title + "</div>";
-						$(msg_data).prependTo("#content");
+								+ data.title +"  "+data.description+"  "+data.details+"</div>";
+						$(msg_data).appendTo("#content");
 					});
 				} else {
 					$("#content").html("No Results");
@@ -35,7 +33,5 @@ $(function(){
 <title>Insert title here</title>
 </head>
 <body>
-	<div id='content'>
-	</div>
 </body>
 </html>
