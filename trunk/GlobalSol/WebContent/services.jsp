@@ -9,11 +9,12 @@ $(function(){
 	$.ajax
 	({
 			type : "GET",
-			url : "/JobReader",
+			url : "JobReader",
 			dataType : "json",
 			success : function(data) {
 				alert(data);
 				if (data.Messages.length) {
+					alert(1);
 					i=0;
 					$.each(data.Messages, function(i, data) {
 						alert(++i);
@@ -35,7 +36,7 @@ $(function(){
 <title>Insert title here</title>
 </head>
 <body>
-	<div id='content'>
+	<div id='content' >
 	</div>
 </body>
 </html>
