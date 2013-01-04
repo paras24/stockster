@@ -3,6 +3,7 @@
  */
 package globalsol.dao;
 
+import globalsol.model.Clients;
 import globalsol.model.Jobs;
 
 import java.util.ArrayList;
@@ -24,5 +25,7 @@ public interface JobsDAO {
 	 * @return the array list
 	 */
 	public ArrayList<Jobs> GetJobs();
+
+	
 
 }
