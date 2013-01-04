@@ -16,6 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `clients`
+--
+
+DROP TABLE IF EXISTS `clients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clients` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `description` varchar(300) NOT NULL,
+  `details` longtext NOT NULL,
+  `date_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clients`
+--
+
+LOCK TABLES `clients` WRITE;
+/*!40000 ALTER TABLE `clients` DISABLE KEYS */;
+INSERT INTO `clients` VALUES (1,'client1','desc','details','2013-01-03 00:50:30'),(2,'client2','desc2','detail2','2013-01-03 03:47:14'),(3,'client3','decs3','detail3','2013-01-03 03:47:31');
+/*!40000 ALTER TABLE `clients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `services`
 --
 
@@ -51,4 +78,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-01-03 16:00:30
+-- Dump completed on 2013-01-04 10:34:01
