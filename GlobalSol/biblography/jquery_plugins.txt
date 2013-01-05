@@ -1,0 +1,2 @@
+tabbed structure
+http://www.jquery4u.com/navigation/10-beneficial-jquery-tab-plugins/
