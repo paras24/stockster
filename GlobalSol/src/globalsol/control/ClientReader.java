@@ -1,11 +1,8 @@
 package globalsol.control;
 
 import globalsol.model.Clients;
-import globalsol.model.Jobs;
 import globalsol.service.ClientsService;
-import globalsol.service.JobsService;
 import globalsol.serviceImpl.ClientsServiceImpl;
-import globalsol.serviceImpl.JobsServiceImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
