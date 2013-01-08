@@ -1,2 +1,9 @@
 tabbed structure
 http://www.jquery4u.com/navigation/10-beneficial-jquery-tab-plugins/
+http://www.jqwidgets.com/jquery-widgets-documentation/documentation/jqxtooltip/jquery-tooltip-styling-and-appearance.htm
+
+http://api.jquery.com/jQuery.Callbacks/
+
+http://www.jquery4u.com
+
+http://jqueryui.com/dialog/#modal-form
