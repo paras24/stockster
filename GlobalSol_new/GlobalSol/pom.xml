@@ -1,13 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>GlobalSol</groupId>
-  <artifactId>GlobalSol</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>GlobalSol Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  <profiles>
+
+ <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>GlobalSol</groupId>
+	<artifactId>GlobalSol</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>GlobalSol Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<profiles>
 		<profile>
 			<id>default-tools.jar</id>
 			<activation>
@@ -27,8 +28,8 @@
 			</dependencies>
 		</profile>
 	</profiles>
-  <dependencies>
-  <dependency>
+	<dependencies>
+		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.8.4</version>
@@ -44,16 +45,16 @@
 			<artifactId>spring-core</artifactId>
 			<version>3.1.2.RELEASE</version>
 		</dependency>
-<dependency>
-	<groupId>org.hibernate</groupId>
-	<artifactId>hibernate-core</artifactId>
-	<version>3.5.6-Final</version>
-</dependency>
-<dependency>
-	<groupId>org.hibernate</groupId>
-	<artifactId>hibernate-annotations</artifactId>
-	<version>3.5.6-Final</version>
-</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.5.6-Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.5.6-Final</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -114,7 +115,7 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.2</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
@@ -142,37 +143,72 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.4.3</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>xpp3</groupId>
 			<artifactId>xpp3_min</artifactId>
 			<version>1.1.4c</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>xmlpull</groupId>
 			<artifactId>xmlpull</artifactId>
 			<version>1.1.3.4a</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>opensymphony</groupId>
 			<artifactId>quartz</artifactId>
 			<version>1.6.1</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>3.1.2.RELEASE</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.8.6</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jfreechart</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>0.9.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jcommon</artifactId>
+			<version>1.0.16</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
@@ -223,7 +259,7 @@
 			<artifactId>httpcore</artifactId>
 			<version>4.2.1</version>
 		</dependency>
-<!-- 		<dependency>
+		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.2</version>
@@ -252,9 +288,13 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
 			<version>1.9.2</version>
-		</dependency> -->
-		
-		<!-- <dependency>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-xc</artifactId>
 			<version>1.9.2</version>
@@ -283,39 +323,47 @@
 			<artifactId>jackson-mapper-lgpl</artifactId>
 			<version>1.9.2</version>
 		</dependency>
- -->
- 
- <dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.6</version>
 		</dependency>
 <dependency>
-	<groupId>org.slf4j</groupId>
-	<artifactId>slf4j-log4j12</artifactId>
-	<version>1.5.6</version>
-</dependency>
- <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.2.2</version>
-      <scope>compile</scope>
-    </dependency>
-
-   <dependency>
-	<groupId>javax</groupId>
-	<artifactId>javaee-web-api</artifactId>
-	<version>6.0</version>
-</dependency> 
-  </dependencies>
- <build>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.2</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<build>
 		<finalName>GlobalSol</finalName>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<url>http://localhost:8080/manager/html</url>
+					<username>tomcat</username>
+					<password>tomcat</password>
+					<path>/GlobalSol</path>
+					<update>true</update>
+				</configuration>
+			</plugin>
+			
+			 <plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.26</version>
-			</plugin>
+				<version>6.1.21</version>
+				<configuration>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>9091</port>
+						</connector>
+					</connectors>
+				</configuration>
+			</plugin> 
 		</plugins>
 	</build>
 </project>
+ 
