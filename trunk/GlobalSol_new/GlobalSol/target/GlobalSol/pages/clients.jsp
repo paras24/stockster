@@ -16,6 +16,7 @@
 			dataType : "json",
 			success : function(data) {
 				alert(data);
+				alert(data+"hhhhhhhhhhhhhhhhhhe");
 				if (data.Messages.length) {
 					$.each(data.Messages, function(i, data) {					
 						var msg_data = "<div id='msg"+data.id+"'>"
