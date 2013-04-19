@@ -28,7 +28,7 @@
 			tag target : <br> Project : <input type="text" id="project2" /><br>
 			<textarea rows="2" cols="20" id="Main_TextBox1"
 				style="height: 141px; width: 828px; overflow: auto"></textarea>
-			<input type="button" value="process me " id="processme" /><br>
+			<input type="button" value="process me " id="processme"  /><br>
 		</div>
 		<div style="float: left;">
 			result:
@@ -57,7 +57,7 @@
 			<tr><td>Project :</td><td><input type="text" id="project" /></td></tr>
 			<tr><td> Word :</td><td><input type="text" id="word" /></td></tr>
 			<tr><td>URL :</td><td><input type="text" id="url" /></td></tr>
-			<tr><td colspan="2" align="center"><input type="button" id="submitEntry" value="submit" style="padding-right: 20px;" /></td></tr>
+			<tr><td colspan="2" align="center"><input type="button" id="submitEntry" value="submit" style="padding-right: 20px;" src"." /></td></tr>
 			</tbody>
 			</table>
 			</div>

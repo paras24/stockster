@@ -37,8 +37,10 @@
 				if(data.Messages.length != 0){
 					$('#result_table').append('<tr  style="text-align:center;font-size:30px"> <td colspan="3">Results</td></tr>');
 					$('#result_table').append('<tr style="font-size:30px; text-align:center"><td>Project</td><td>Word</td><td>Url</td></tr>');
+					$('#result_table').attr('border','1');
 				}else{
-					$('#result_table').append('<tr  style="text-align:center;font-size:30px"> <td colspan="3">No result found</td></tr>');
+					$('#result_table').attr('border','0');
+					$('#result_table').append('<tr  style="text-align:center;font-size:30px"> <td >No result found</td></tr>');
 				}
 				$.each(data.Messages, function(i, data) {
 					console.info( data.project+" "+data.word+" "+data.url);
@@ -96,7 +98,7 @@ body {
 		</table>
 		</div>
 		<div style="box-shadow:gray .4em .4em .4em .4em;margin:100px 0 100px 400px; width: 600px">
-		<table id="result_table"   border="1">
+		<table id="result_table"  >
 		</table>
 		</div>
 		
