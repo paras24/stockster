@@ -64,5 +64,9 @@ jQuery(function($) {
 			popupStatus = 0;  // and set value to 0
 		}
 	}
+	
+	function tryit(){
+		alert(1);
+	}
 	/************** end: functions. **************/
 }); // jQuery End
