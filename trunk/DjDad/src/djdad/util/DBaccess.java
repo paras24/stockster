@@ -8,8 +8,8 @@ public class DBaccess {
 public static Connection getConn(){
 	Connection conn = null;
 	try {
-		Class.forName(PropertyLoader.get("dbdriver"));
-		conn = DriverManager.getConnection(PropertyLoader.get("dburl"),PropertyLoader.get("dbuser"),PropertyLoader.get("dbpass"));
+		Class.forName("com.mysql.jdbc.Driver");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/djdad","root","root");
 	} catch (ClassNotFoundException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

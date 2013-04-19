@@ -5,8 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="./javascript/jquery.min.js" type="text/javascript"></script>
+<script src="./javascript/jquery-ui.js"></script>
+<link rel="stylesheet" href="./stylesheet/jquery-ui.css" />
 <script type="text/javascript">
 	$(function() {
+		$('#Main_TextBox1').resizable({
+		
+			alsoResize:'#Main_TextBox2,#container',
+			containment: "parent"
+		});
 		processTagMaker(false);
 		$('#submitEntry').click(function() {
 			console.info(1);
@@ -67,16 +74,19 @@
 					$('#Main_TextBox2').html('<img src="./image/processing.gif"/>');
 				},
 				success : function(data) {
+					
 					console.info('after:'+data);
 					$.each(data.Messages, function(i, data) {
 						console.info(data.word);
 						console.info(data.url);
 						target = target.replace(data.word,
-								'<a href="'+data.url+'" >' + data.word + '</a>');
+								'<a href="'+data.url+'" target="_blank">' + data.word + '</a>');
 						//replace(data.word,data.word+' xxxx');
-						$('#Main_TextBox2').html(target);
+						//$('#Main_TextBox2').html(target);
 
 					});
+					console.info(target);
+					$('#Main_TextBox2').html(target);
 				}
 
 			});
@@ -98,16 +108,19 @@
 	</div>
 
 
-	<div style="border: ridge">
+	<div style="border: ridge;  clear: both;overflow: auto; min-width: 100%;max-width: 100%" id="container">
 		<h1>Tag processor</h1>
-		tag target : <br> Project : <input type="text" id="project2" /><br>
+		<div style="float: left">tag target : <br> Project : <input type="text" id="project2" /><br>
 		<textarea rows="2" cols="20" id="Main_TextBox1"
-			style="height: 141px; width: 728px;"></textarea>
-		<input type="button" value="process me " id="processme" /><br>
-		result:
+			style="height: 141px; width: 828px;overflow: auto"></textarea>
+		<input type="button" value="process me " id="processme" /><br></div>
+		<div style="float: left;">result:
 		<div id="Main_TextBox2"
-			style="height: 141px; width: 728px; margin-top: 10px"></div>
+			style="height: 141px; width: 828px; margin-top: 10px; border: ridge;float: right;margin-top: 40px; overflow: auto" ></div></div>
+			
 
 	</div>
+	<!-- testing -->
+	
 </body>
 </html>

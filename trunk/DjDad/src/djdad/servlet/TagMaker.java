@@ -70,10 +70,9 @@ public class TagMaker extends HttpServlet {
 
 			}
 
-			Thread.sleep(300);
 			Gson gson = new Gson();
 			String output = gson.toJson(tagList);
-			System.out.println(output);
+			System.out.println("{\"Messages\":"+output+"}");
 			out.println("{\"Messages\":"+output+"}");
 
 
@@ -104,4 +103,6 @@ public class TagMaker extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		service(request, response);
 	}
+	
+	
 }
