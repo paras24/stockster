@@ -10,9 +10,6 @@ import java.net.SocketException;
  */
 public class ChatSocketServer {
 	
-	/** The sever socket. */
-	private ServerSocket severSocket = null;
-	
 	/** The socket. */
 	private Socket socket = null;
 	
@@ -63,7 +60,6 @@ public class ChatSocketServer {
 							byte[] arrayBytes = new byte[num];
 							System.arraycopy(readBuffer, 0, arrayBytes, 0, num);
 							String recvedMessage = new String(arrayBytes, "UTF-8");
-							if(recvedMessage.equalsIgnoreCase("exit"))recvedMessage = "client left.. enter exit to close";
 							System.out.println("Received message :" + recvedMessage);
 						} else {
 							notify();
