@@ -1,0 +1,13 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+<definition name="login.tiles" template="/pages/user/login.jsp">
+</definition>
+<definition name="welcome.tiles" extends="sidebar_template">
+	<put-attribute name="title" value="Team View" />
+	<put-attribute name="body" value="/pages/joiningPipeline/joiningPipeline.jsp" />
+</definition>
+
+</tiles-definitions>

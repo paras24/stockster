@@ -1,0 +1,14 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+<definition name="login.tiles" extends="template">
+	<put-attribute name="title" value="Login" />
+	<put-attribute name="body" value="/pages/user/login.jsp" />
+</definition>
+<definition name="welcome.tiles" extends="sidebar_template">
+	<put-attribute name="title" value="Welcome" />
+	<put-attribute name="body" value="/pages/user/welcome_user.jsp" />
+</definition>
+</tiles-definitions>
