@@ -1,6 +1,7 @@
 package com.impetus.ee.domain.opportunity;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,9 @@ import javax.persistence.Table;
 
 import com.impetus.ee.domain.DomainObject;
 import com.impetus.ee.domain.project.Project;
+import com.impetus.ee.domain.relation.ProjectMemberRelation;
 import com.impetus.ee.domain.teamMember.TeamMember;
+import com.impetus.ee.domain.user.ManyToOne;
 
 @Entity
 @Table(name="Opportunity")
@@ -44,7 +47,7 @@ private Date requestDate;
 @Column(name="People_Required_Count")
 private Integer peopleRequiredCount;
 
-@OneToOne
+@ManyToOne(fetch=FetchType.EAGER)
 @JoinColumn(name="Loc_Id")
 private Location location;
 
@@ -63,8 +66,9 @@ private Integer requirementStatus;
 @OneToMany(mappedBy="opportunity", cascade=CascadeType.ALL)  
 private Set<OpportunityRemarks> opportunityRemarks;
 
-@OneToMany(mappedBy="opportunity", cascade=CascadeType.ALL)  
-private Set<OpportunityKeySkillRelation> skillRelations;
+
+@OneToMany(fetch = FetchType.LAZY, mappedBy = "relationKey.opportunity")
+private Set<OpportunityKeySkillRelation> opportunityKeySkillRelation = new HashSet<OpportunityKeySkillRelation>(0);
 
 public Integer getId() {
 	return id;
@@ -162,13 +166,15 @@ public void setOpportunityRemarks(Set<OpportunityRemarks> opportunityRemarks) {
 	this.opportunityRemarks = opportunityRemarks;
 }
 
-public Set<OpportunityKeySkillRelation> getSkillRelations() {
-	return skillRelations;
+public Set<OpportunityKeySkillRelation> getOpportunityKeySkillRelation() {
+	return opportunityKeySkillRelation;
 }
 
-public void setSkillRelations(Set<OpportunityKeySkillRelation> skillRelations) {
-	this.skillRelations = skillRelations;
-} 
+public void setOpportunityKeySkillRelation(
+		Set<OpportunityKeySkillRelation> opportunityKeySkillRelation) {
+	this.opportunityKeySkillRelation = opportunityKeySkillRelation;
+}
+
 
 
 }
