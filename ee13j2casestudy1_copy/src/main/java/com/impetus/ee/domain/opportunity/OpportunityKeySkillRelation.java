@@ -1,48 +1,59 @@
 package com.impetus.ee.domain.opportunity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.impetus.ee.domain.project.Project;
+import com.impetus.ee.domain.relation.AssociationOverride;
+import com.impetus.ee.domain.relation.AssociationOverrides;
+import com.impetus.ee.domain.relation.Column;
+import com.impetus.ee.domain.relation.EmbeddedId;
+import com.impetus.ee.domain.relation.Entity;
+import com.impetus.ee.domain.relation.JoinColumn;
+import com.impetus.ee.domain.relation.ProjectMemberRelationId;
+import com.impetus.ee.domain.relation.Table;
+import com.impetus.ee.domain.relation.Transient;
+import com.impetus.ee.domain.teamMember.TeamMember;
 
 @Entity
-@Table(name="Opportunity_keySkills")
+@Table(name = "Opportunity_keyskill")
+@AssociationOverrides({
+		@AssociationOverride(name = "relationKey.opportunity", 
+			joinColumns = @JoinColumn(name = "opportunityID")),
+		@AssociationOverride(name = "relationKey.skill", 
+			joinColumns = @JoinColumn(name = "skillID")) })
 public class OpportunityKeySkillRelation {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="Id")
-	private Integer id;
+	private OpportunityKeySkillRelationId relationKey = new OpportunityKeySkillRelationId();
 	
-	@Column(name="Skill_Id")
-	private Integer skillId;
-	
-	@Column(name="Type")
+	@Column(name="type")
 	private Integer type;
-
-	@ManyToOne
-	@JoinColumn(name="Opportunity_id")
-	private Opportunity opportunity;
 	
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	@EmbeddedId
+	public OpportunityKeySkillRelationId getRelationKey() {
+		return relationKey;
 	}
-
-	public Integer getSkillId() {
-		return skillId;
+ 
+	public void setRelationKey(OpportunityKeySkillRelationId relationKey) {
+		this.relationKey = relationKey;
 	}
-
-	public void setSkillId(Integer skillId) {
-		this.skillId = skillId;
+	
+	@Transient
+	public Opportunity getOpportunity() {
+		return getRelationKey().getOpportunity();
 	}
+ 
+	public void setOpportunity(Opportunity opportunity) {
+		getRelationKey().setOpportunity(opportunity);
+	}
+ 
+	@Transient
+	public KeySkill getKeySkill() {
+		return getRelationKey().getKeySkill();
+	}
+ 
+	public void setKeySkill(KeySkill keySkill) {
+		getRelationKey().setKeySkill(keySkill);
+	}
+	
 
 	public Integer getType() {
 		return type;
@@ -51,16 +62,4 @@ public class OpportunityKeySkillRelation {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-
-	public Opportunity getOpportunity() {
-		return opportunity;
-	}
-
-	public void setOpportunity(Opportunity opportunity) {
-		this.opportunity = opportunity;
-	}
-
-
-	
-	
 }
