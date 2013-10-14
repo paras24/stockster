@@ -11,7 +11,8 @@
   	/pages/team/tiles.xml,
   	/pages/joiningPipeline/tiles.xml,
   	/pages/project/tiles.xml,
-  	/pages/reports/tiles.xml
+  	/pages/reports/tiles.xml,
+  	/pages/newOpportunities/tiles.xml
   	</param-value>
   </context-param>
   <listener>

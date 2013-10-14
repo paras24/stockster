@@ -1,0 +1,13 @@
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+
+<definition name="opportunity.tiles" extends="sidebar_template">
+	<put-attribute name="title" value="Opportunities" />
+	<put-attribute name="body" value="/pages/newOpportunities/opportunity.jsp" />
+</definition>
+
+
+</tiles-definitions>
