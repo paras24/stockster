@@ -7,19 +7,19 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.impetus.ee.domain.DomainObject;
 import com.impetus.ee.domain.project.Project;
-import com.impetus.ee.domain.relation.ProjectMemberRelation;
 import com.impetus.ee.domain.teamMember.TeamMember;
-import com.impetus.ee.domain.user.ManyToOne;
 
 @Entity
 @Table(name="Opportunity")
@@ -35,7 +35,7 @@ private Integer id;
 private Project project;
 
 @Column(name="Sub_Project_Name")
-private Integer subprojectName;
+private String subprojectName;
 
 @OneToOne
 @JoinColumn(name="ContactPoint_Id")
@@ -51,17 +51,17 @@ private Integer peopleRequiredCount;
 @JoinColumn(name="Loc_Id")
 private Location location;
 
-
+@Column(name="start_Date_Of_Resources")
 private Date startDateOfResources;
 
 @Column(name="Work_Duration")
 private Integer durationUpto;
 
 @Column(name="requirementType")
-private Integer requirementType;
+private String requirementType;
 
 @Column(name="requirementStatus")
-private Integer requirementStatus;
+private String requirementStatus;
 
 @OneToMany(mappedBy="opportunity", cascade=CascadeType.ALL)  
 private Set<OpportunityRemarks> opportunityRemarks;
@@ -86,11 +86,11 @@ public void setProject(Project project) {
 	this.project = project;
 }
 
-public Integer getSubprojectName() {
+public String getSubprojectName() {
 	return subprojectName;
 }
 
-public void setSubprojectName(Integer subprojectName) {
+public void setSubprojectName(String subprojectName) {
 	this.subprojectName = subprojectName;
 }
 
@@ -142,19 +142,19 @@ public void setDurationUpto(Integer durationUpto) {
 	this.durationUpto = durationUpto;
 }
 
-public Integer getRequirementType() {
+public String getRequirementType() {
 	return requirementType;
 }
 
-public void setRequirementType(Integer requirementType) {
+public void setRequirementType(String requirementType) {
 	this.requirementType = requirementType;
 }
 
-public Integer getRequirementStatus() {
+public String getRequirementStatus() {
 	return requirementStatus;
 }
 
-public void setRequirementStatus(Integer requirementStatus) {
+public void setRequirementStatus(String requirementStatus) {
 	this.requirementStatus = requirementStatus;
 }
 

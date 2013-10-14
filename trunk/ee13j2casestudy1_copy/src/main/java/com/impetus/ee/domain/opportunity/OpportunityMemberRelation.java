@@ -13,7 +13,7 @@ import javax.persistence.Transient;
 import com.impetus.ee.domain.project.Project;
 import com.impetus.ee.domain.teamMember.TeamMember;
 @Entity
-@Table(name = "member_project")
+@Table(name = "opportunity_member")
 @AssociationOverrides({
 		@AssociationOverride(name = "relationKey.opportunity", 
 			joinColumns = @JoinColumn(name = "opportunityID")),

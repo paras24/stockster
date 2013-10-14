@@ -1,16 +1,13 @@
 package com.impetus.ee.domain.opportunity;
 
-import com.impetus.ee.domain.project.Project;
-import com.impetus.ee.domain.relation.AssociationOverride;
-import com.impetus.ee.domain.relation.AssociationOverrides;
-import com.impetus.ee.domain.relation.Column;
-import com.impetus.ee.domain.relation.EmbeddedId;
-import com.impetus.ee.domain.relation.Entity;
-import com.impetus.ee.domain.relation.JoinColumn;
-import com.impetus.ee.domain.relation.ProjectMemberRelationId;
-import com.impetus.ee.domain.relation.Table;
-import com.impetus.ee.domain.relation.Transient;
-import com.impetus.ee.domain.teamMember.TeamMember;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.Column;
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Opportunity_keyskill")

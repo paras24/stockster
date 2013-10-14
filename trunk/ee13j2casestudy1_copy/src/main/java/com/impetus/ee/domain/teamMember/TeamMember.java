@@ -28,8 +28,8 @@ public class TeamMember
 	private String memberName;
 	@Column(name="Grade")
 	private String Grade;
-	@Column(name="experirnce")
-	private int experirnce;
+	@Column(name="Experience ")
+	private int experience ;
 	@Column(name="keySkills")
 	private String keySkills; /*Initially consdering a comma seperated string values*/
 	@Column(name="remarks")
@@ -71,11 +71,12 @@ public class TeamMember
 	public void setGrade(String grade) {
 		Grade = grade;
 	}
-	public int getExperirnce() {
-		return experirnce;
+
+	public int getExperience() {
+		return experience;
 	}
-	public void setExperirnce(int experirnce) {
-		this.experirnce = experirnce;
+	public void setExperience(int experience) {
+		this.experience = experience;
 	}
 	public String getKeySkills() {
 		return keySkills;
