@@ -1,22 +1,30 @@
 package com.impetus.ee.domain.joiningPipeline;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.impetus.ee.domain.relation.ProjectJPMemberRelation;
+import com.impetus.ee.domain.relation.ProjectMemberRelation;
 @Entity
 @Table(name="JoiningPipelineMembers")
 public class JoiningPipelineMember {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="jPmemberID")
-	private int jPmemberID;
-	@Column(name="jPmemberName")
-	private String jPmemberName;
+	@Column(name="jpmemberID")
+	private int jpmemberID;
+	@Column(name="jpmemberName")
+	private String jpmemberName;
 	@Column(name="Grade")
 	private String Grade;
 	@Column(name="experience")
@@ -32,17 +40,22 @@ public class JoiningPipelineMember {
 	@Column(name="status")
 	private String status;
 	
-	public int getjPMemberID() {
-		return jPmemberID;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "relationKey.joiningPipelineMember", cascade=CascadeType.ALL)
+	private Set<ProjectJPMemberRelation> projectJPMemberRelation = new HashSet<ProjectJPMemberRelation>(0);
+	
+	
+	public int getJpmemberID() {
+		return jpmemberID;
 	}
-	public void setjPMemberID(int jPmemberID) {
-		this.jPmemberID = jPmemberID;
+	public void setJpmemberID(int jpmemberID) {
+		this.jpmemberID = jpmemberID;
 	}
-	public String getjPMemberName() {
-		return jPmemberName;
+
+	public String getJpmemberName() {
+		return jpmemberName;
 	}
-	public void setjPMemberName(String jPmemberName) {
-		this.jPmemberName = jPmemberName;
+	public void setJpmemberName(String jpmemberName) {
+		this.jpmemberName = jpmemberName;
 	}
 	public String getGrade() {
 		return Grade;
@@ -80,11 +93,17 @@ public class JoiningPipelineMember {
 	public void setSupervisorName(String supervisorName) {
 		this.supervisorName = supervisorName;
 	}
-	public String getStatus(){
+	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public Set<ProjectJPMemberRelation> getProjectJPMemberRelation() {
+		return this.projectJPMemberRelation;
+	}
+	public void setProjectJPMemberRelation(Set<ProjectJPMemberRelation> projectJPMemberRelation) {
+		this.projectJPMemberRelation = projectJPMemberRelation;
 	}
 	
 }

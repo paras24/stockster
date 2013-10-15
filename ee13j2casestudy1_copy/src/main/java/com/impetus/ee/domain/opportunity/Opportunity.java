@@ -1,6 +1,7 @@
 package com.impetus.ee.domain.opportunity;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,7 +56,7 @@ private Location location;
 private Date startDateOfResources;
 
 @Column(name="Work_Duration")
-private Integer durationUpto;
+private Integer duration;
 
 @Column(name="requirementType")
 private String requirementType;
@@ -67,8 +68,14 @@ private String requirementStatus;
 private Set<OpportunityRemarks> opportunityRemarks;
 
 
-@OneToMany(fetch = FetchType.LAZY, mappedBy = "relationKey.opportunity")
-private Set<OpportunityKeySkillRelation> opportunityKeySkillRelation = new HashSet<OpportunityKeySkillRelation>(0);
+@Column(name="primary_keyskills")
+private String primaryKeyskills;
+
+@Column(name="secondary_keyskills")
+private String secondaryKeyskills;
+
+@OneToMany(fetch = FetchType.LAZY, mappedBy = "relationKey.opportunity",cascade=CascadeType.ALL)
+private Set<OpportunityMemberRelation> opportunityMemberRelation = new HashSet<OpportunityMemberRelation>(0);
 
 public Integer getId() {
 	return id;
@@ -134,12 +141,12 @@ public void setStartDateOfResources(Date startDateOfResources) {
 	this.startDateOfResources = startDateOfResources;
 }
 
-public Integer getDurationUpto() {
-	return durationUpto;
+public Integer getDuration() {
+	return duration;
 }
 
-public void setDurationUpto(Integer durationUpto) {
-	this.durationUpto = durationUpto;
+public void setDuration(Integer duration) {
+	this.duration = duration;
 }
 
 public String getRequirementType() {
@@ -166,13 +173,28 @@ public void setOpportunityRemarks(Set<OpportunityRemarks> opportunityRemarks) {
 	this.opportunityRemarks = opportunityRemarks;
 }
 
-public Set<OpportunityKeySkillRelation> getOpportunityKeySkillRelation() {
-	return opportunityKeySkillRelation;
+public void setPrimaryKeyskills(String primaryKeyskills) {
+	this.primaryKeyskills = primaryKeyskills;
 }
 
-public void setOpportunityKeySkillRelation(
-		Set<OpportunityKeySkillRelation> opportunityKeySkillRelation) {
-	this.opportunityKeySkillRelation = opportunityKeySkillRelation;
+public String getPrimaryKeyskills() {
+	return primaryKeyskills;
+}
+
+public void setSecondaryKeyskills(String secondaryKeyskills) {
+	this.secondaryKeyskills = secondaryKeyskills;
+}
+
+public String getSecondaryKeyskills() {
+	return secondaryKeyskills;
+}
+
+public void setOpportunityMemberRelation(Set<OpportunityMemberRelation> opportunityMemberRelation) {
+	this.opportunityMemberRelation = opportunityMemberRelation;
+}
+
+public Set<OpportunityMemberRelation> getOpportunityMemberRelation() {
+	return opportunityMemberRelation;
 }
 
 

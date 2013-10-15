@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.impetus.ee.domain.user.User;
+import com.impetus.ee.exception.user.DuplicateUserException;
 import com.impetus.ee.services.api.user.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.EmailValidator;
@@ -39,17 +40,12 @@ public class UpdateUserAction extends ActionSupport
 	})
 	public String addUser() 
 	{
-		if(userService.getUser(getUsername())!=null)
-		{
-			addActionError("User already exists.");
-			return INPUT;
+		try {
+			userService.addUser(getUsername(),getPassword());
+		} catch (DuplicateUserException e) {
+			addActionError(e.getMessage());
+			return INPUT;	
 		}
-		User user = new User();
-		user.setEmail(getUsername());
-		user.setPassword(getPassword());
-		user.setRole(userService.getRole("Admin"));
-		user.setEnabled(true);		
-		userService.addUser(user);		
 		return SUCCESS;
 	}
 

@@ -7,8 +7,10 @@ import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.impetus.ee.common.QueryParameterDTO;
 import com.impetus.ee.domain.joiningPipeline.JoiningPipelineMember;
 import com.impetus.ee.domain.teamMember.TeamMember;
+import com.impetus.ee.domain.user.User;
 import com.impetus.ee.exception.daoLayer.DBException;
 import com.impetus.ee.persistence.api.joiningPipeline.JoiningPipelineMemberDAO;
 import com.impetus.ee.services.api.joiningPipeline.JoiningPipelineMemberService;
@@ -35,7 +37,7 @@ public class JoiningPipelineMemberServiceImpl implements JoiningPipelineMemberSe
 		}
 		if(jPmember!=null)
 		{	
-			return jPmember.getjPMemberID();
+			return jPmember.getJpmemberID();
 		}
 		else
 		{
@@ -46,7 +48,7 @@ public class JoiningPipelineMemberServiceImpl implements JoiningPipelineMemberSe
 		JoiningPipelineMember jPmember=JoiningPipelineMemberObjectMapper.toJoiningPipelineMember(jPMemberInfo);
 		try 
 		{
-					
+			System.out.println("Updating");		
 			jPMemberDAO.updateJoiningPipelineMember(jPmember);
 		}
 		catch(DBException ex)
@@ -108,5 +110,10 @@ public class JoiningPipelineMemberServiceImpl implements JoiningPipelineMemberSe
 		}
 		
 		return flag;
+	}
+	
+	@Override
+	public List<JoiningPipelineMemberInfo> getJoiningPipelineMembers(QueryParameterDTO queryParameterDTO) {
+		return jPMemberDAO.getJoiningPipelineMembers(queryParameterDTO);
 	}
 }

@@ -13,8 +13,12 @@
 
 
 <s:url var = "opportunityListJSONURL" value="/opportunity/opportunityListJson.action"/>
-<input type="hidden" id="opportunityListJSONURLHidden" value="${opportunityListJSONURL}"/>
+<%-- <s:url var = "deleteUserURL" value="/user/delete.action"/> --%>
+<input type="hidden" id="userListJSONURLHidden" value="${opportunityListJSONURL}"/>
 
+<%-- <input type="hidden" id="deleteUserURLHidden" value="${deleteUserURL}"/>
+<s:url var="form" value="/user/form"/>
+<a href="${form}" id="newUser"></a> --%>
 <table id="opportunityListTable">
 </table>
 <div id="opportunityListPager"></div>
@@ -22,7 +26,7 @@
 $(document).ready(function() 
 {	
 	drawTable();
-	/* $('#newUser').fancybox({
+	/* $('#newUser').fancybox({				
 		 autoDimensions: false,
 		 onComplete: function() {
 		 	$.fancybox.resize();
@@ -32,7 +36,7 @@ $(document).ready(function()
 });
 function drawTable()
 {
-	
+	/* debugger; */
 		$("#opportunityListTable").jqGrid( 
 				{
 					datatype: function(postdata) {
@@ -44,19 +48,21 @@ function drawTable()
 					height:"100%",
 					sortname : 'modified',
 					sortorder : 'desc',
-					colNames:['Project','Sub Project', 'Location', 'Point of Contact','Request Date','Start Date','Duration','People Required','Type','Status'],
+					colNames:['ID','Project','Sub Project', 'Contact', 'Requested on','People required','Location','Start on','Duration','Type','Status'],
 					colModel:[
-							  {name:'project.projectName'},
-							  {name:'subprojectName' , align:'left', width : 140},
-					          {name:'location.locName', align:'center', width : 100},
-					          {name:'contactPoint.memberName', align:'center', width : 100},
-					          {name:'requestDate', align:'center', width : 100},
-					          {name:'startDateOfResources', align:'center', width : 100},
-					          {name:'durationUpto', align:'center', width : 100},
-					          {name:'peopleRequiredCount', align:'center', width : 100},
-					          {name:'requirementType', align:'center', width : 100},
-					          {name:'requirementStatus', align:'center', width : 100},
-					      	 ],
+							  {name:'Id', hidden:true},
+							  {name:'project.projectName' , align:'left', width : 140, searchoptions:{sopt:['cn']}},
+					          {name:'subprojectName', align:'center', width : 100,search:false},
+					          {name:'contactPoint.memberName', align:'center', width : 100,search:false},
+					          {name:'requestDate', align:'center', width : 100, formatter: convertTimeStampToDate,search:false},
+					          {name:'peopleRequiredCount', align:'center', width : 100,search:false},
+					          {name:'location', align:'center', width : 100,search:false},
+					          {name:'startDateOfResources', align:'center', width : 100, formatter: convertTimeStampToDate,search:false},
+					          {name:'duration', align:'center', width : 100,search:false},
+					          {name:'requirementType', align:'center', width : 100,search:false},
+					          {name:'requirementStatus', align:'center', width : 100,search:false},
+					      	 // {name:'options',index:'options',align:'center',width:70,editable: false,formatter:actionsLinkFormatter,search:false, sortable:false},			          
+					          ],
 					sortname: 'modified',
 					emptyrecords: "No users found.",
 					beforeSelectRow:function(){return false},
@@ -77,7 +83,7 @@ function drawTable()
 		            	   }
 				});
 		
-		jQuery("#opportunityListTable").jqGrid('navGrid',"#userListPager",{addfunc:newUser,addtitle:'Add User', searchtitle : "Find Users", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true});
+		jQuery("#opportunityListTable").jqGrid('navGrid',"#opportunityListPager",{addfunc:newUser,addtitle:'Add User', searchtitle : "Find Users", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true});
 		$("#opportunityListTable").css('overflow-x','hidden');
 		$("#opportunityListTable").css('overflow-y','auto');
 		$(".ui-pg-selbox").css('width','50');
@@ -90,16 +96,16 @@ function drawTable()
 
 	function gridInitialize() {
 		
-		var urlValue = $('#opportunityListJSONURLHidden').val();
+		var urlValue = $('#userListJSONURLHidden').val();
 		var displayLength=jQuery("#opportunityListTable").jqGrid("getGridParam","postData").rows;
-		/* var searchString=jQuery("#opportunityListTable").jqGrid("getGridParam","postData").searchString; */
-		/* if(typeof searchString=='undefined') {
+		var searchString=jQuery("#opportunityListTable").jqGrid("getGridParam","postData").searchString;
+		if(typeof searchString=='undefined') {
 			searchString="";						
-			} */
+			}
 		var sortColName=jQuery("#opportunityListTable").jqGrid("getGridParam","postData").sidx;
 		var sortOrder=jQuery("#opportunityListTable").jqGrid("getGridParam","postData").sord;
 		var displayStart=(jQuery("#opportunityListTable").jqGrid("getGridParam","postData").page-1)*displayLength;
-		urlValue = urlValue+"?displayLength="+displayLength+"&sortColName="+sortColName+"&sortOrder="+sortOrder+"&displayStart="+displayStart;
+		urlValue = urlValue+"?displayLength="+displayLength+"&searchString="+searchString+"&sortColName="+sortColName+"&sortOrder="+sortOrder+"&displayStart="+displayStart;
 	jQuery.ajax({
         url: urlValue,			            
         dataType:"json",
@@ -112,6 +118,10 @@ function drawTable()
      });
 	}
 
+	function newUser()
+	{
+		$('#newUser').trigger("click");		
+	}
 	
 function actionsLinkFormatter(cellvalue, options, rowObject)
 {
@@ -121,6 +131,39 @@ function actionsLinkFormatter(cellvalue, options, rowObject)
 	/* "<a class='ui-pg-div ui-inline-edit' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='editUser(&quot;"+userID+"&quot;);'style='cursor:pointer; display: inline-table; float: none; ' title='Edit "+email+"'><span align='center' class='ui-icon ui-icon-pencil'></span></a>"+ */
 	"<a class='ui-pg-div ui-inline-del' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='deleteUser(&quot;"+userID+"&quot;);'style='display: inline-table; float: none; margin-left: 10px;' title='Delete "+email+"'><span align='center' class='ui-icon ui-icon-trash'></span></a>";
 	return userActions ;
+}
+
+function deleteUser(userID)	
+{
+		var $dialog = $('<div></div>')
+		.html("Are you sure?")
+		.dialog({
+			autoOpen: false,
+			title: 'Team Planner',
+			resizable: false,
+			height:140,
+			modal: true,
+			buttons: {
+				"Delete": function() {
+					var urlvalue = $("#deleteUserURLHidden").val()+"?userID="+userID;
+					var val = $.ajax( {
+						type : "POST",
+						url : urlvalue,		
+						dataType : "json",
+						async : false,
+						success : function(result) 
+						{
+							$("#opportunityListTable").trigger("reloadGrid");						
+						}
+					});	
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+		$dialog.dialog('open');
 }
 
 function convertTimeStampToDate(cellvalue, options, rowObject) 

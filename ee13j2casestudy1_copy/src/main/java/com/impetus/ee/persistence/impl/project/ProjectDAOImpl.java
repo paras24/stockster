@@ -149,7 +149,7 @@ List<Project> projectList=new ArrayList<Project>();
 		
 		try{
 				session =  sessionFactory.openSession();
-				projectList=session.createQuery("from Project where groupHeadName='"+groupHeadName+"'").list();
+				projectList=session.createQuery("from Project").list();
 				
 			}
 		catch(HibernateException e)

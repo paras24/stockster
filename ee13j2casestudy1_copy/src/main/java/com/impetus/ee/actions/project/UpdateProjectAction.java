@@ -12,14 +12,13 @@ import com.impetus.ee.services.api.project.ProjectService;
 import com.impetus.ee.vo.ProjectInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.Validations;
+
 
 @Component
 @Scope("prototype")
 @Namespace("/project")
 @ResultPath(value="/")
-@Validations
-public class AddProjectAction extends ActionSupport{
+public class UpdateProjectAction extends ActionSupport{
 	
 	@Autowired
 	private ProjectService projectService;
@@ -30,12 +29,11 @@ public class AddProjectAction extends ActionSupport{
 	private String pointOfContact;
 	private String supervisorName;
 	
-	
-	@Action(value="addProject", results={
-			@Result(name=SUCCESS,type="redirect",location="ProjectView.action"),
-			@Result(name=INPUT,type="tiles",location="projectform.tiles")
+	@Action(value="updateProject", results={
+			@Result(name="success",type="tiles",location="project.tiles")
+			//@Result(name=INPUT,type="tiles",location="projectform.tiles")
 	})
-	public String addProject() 
+	public String updateProject() 
 	{
 		ProjectInfo projectInfo = new ProjectInfo();
 		projectInfo.setProjectName(projectName);
@@ -43,15 +41,11 @@ public class AddProjectAction extends ActionSupport{
 		projectInfo.setGroupHeadName(groupHeadName);
 		projectInfo.setPointOfContact(pointOfContact);
 		projectInfo.setSupervisorName(supervisorName);
-		projectService.addProject(projectInfo);
+		projectService.updateProject(projectInfo);
 		
 		return SUCCESS;
 		
 	}
-	
-	
-	
-	
 	public ProjectInfo getProjectInfo() {
 		return projectInfo;
 	}

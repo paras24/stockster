@@ -1,16 +1,12 @@
 package com.impetus.ee.domain.opportunity;
-import java.sql.Date;
-
+import javax.persistence.AssociationOverride;
+import javax.persistence.AssociationOverrides;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.Column;
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.impetus.ee.domain.project.Project;
 import com.impetus.ee.domain.teamMember.TeamMember;
 @Entity
 @Table(name = "opportunity_member")

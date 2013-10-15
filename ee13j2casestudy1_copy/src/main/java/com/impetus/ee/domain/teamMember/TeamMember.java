@@ -15,10 +15,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+
 import com.impetus.ee.domain.relation.ProjectMemberRelation;
 @Entity
 @Table(name="TeamMembers")
-public class TeamMember 
+public class TeamMember
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -28,8 +30,8 @@ public class TeamMember
 	private String memberName;
 	@Column(name="Grade")
 	private String Grade;
-	@Column(name="Experience ")
-	private int experience ;
+	@Column(name="experirnce")
+	private int experience;
 	@Column(name="keySkills")
 	private String keySkills; /*Initially consdering a comma seperated string values*/
 	@Column(name="remarks")
@@ -71,12 +73,11 @@ public class TeamMember
 	public void setGrade(String grade) {
 		Grade = grade;
 	}
-
 	public int getExperience() {
 		return experience;
 	}
-	public void setExperience(int experience) {
-		this.experience = experience;
+	public void setExperience(int experirnce) {
+		this.experience = experirnce;
 	}
 	public String getKeySkills() {
 		return keySkills;

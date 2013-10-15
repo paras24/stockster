@@ -32,6 +32,7 @@ public class RetrieveAllUsersAction extends ActionSupport implements ModelDriven
 	})
 	public String usersJson() 
 	{
+		
 		List<User> users = userService.getUsers(queryParameterDTO);
 		int modulus = queryParameterDTO.getTotalDisplayRecords()% queryParameterDTO.getDisplayLength();
 		setTotalPages(queryParameterDTO.getTotalDisplayRecords()/ queryParameterDTO.getDisplayLength());

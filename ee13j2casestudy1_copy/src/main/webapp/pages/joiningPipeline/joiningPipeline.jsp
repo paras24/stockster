@@ -14,10 +14,15 @@
 
 <s:url var = "jPMemberInfoListJSONURL" value="/joiningPipeline/jPMemberListJson.action"/>
 <s:url var = "deleteJPMemberURL" value="/joiningPipeline/deleteJPMember.action"/>
+<s:url var = "editJPMemberURL" value="/joiningPipeline/editJPMemberForm.action"/>
 <input type="hidden" id="jPMemberInfoListJSONURLHidden" value="${jPMemberInfoListJSONURL}"/>
 <input type="hidden" id="deleteJPMemberURLHidden" value="${deleteJPMemberURL}"/>
-<s:url var="form" value="/user/form"/>
-<a href="${form}" id="newJPMember"></a>
+<input type="hidden" id="editJPMemberURLHidden" value="${editJPMemberURL}"/>
+<s:url value="/joiningPipeline/showJoiningPipelineMemberForm.action" var="addJoiningPipelineMemberFormURL" />
+<s:a href="%{addJoiningPipelineMemberFormURL}">Add JP Member</s:a>
+
+<s:form action="" name="mainform" ></s:form>
+
 <table id="jPMemberListTable">
 </table>
 <div id="jPMemberListPager"></div>
@@ -25,12 +30,12 @@
 $(document).ready(function() 
 {	
 	drawTable();
-	$('#newJPMember').fancybox({				
+	/* $('#newJPMember').fancybox({				
 		 autoDimensions: false,
 		 onComplete: function() {
 		 	$.fancybox.resize();
 		 }
-	});
+	}); */
 	
 });
 function drawTable()
@@ -50,12 +55,12 @@ function drawTable()
 					colNames:['ID','Name', 'Grade', 'Experience','KeySkills','Date Created', 'Last Modified',''],
 					colModel:[
 							  {name:'jpmemberID', hidden:true},
-							  {name:'jpMemberName' , align:'left', width : 140, searchoptions:{sopt:['cn']}},
-					          {name:'grade', align:'center', width : 100},
-					          {name:'experience', align:'center', width : 100},
-					      	  {name:'keySkills',index:'options',align:'center',width:70},	
-					      	  {name:'created', align:'center', formatter: convertTimeStampToDate,search:false},
-					          {name:'modified', align:'center', formatter: convertTimeStampToDate,search:false},
+							  {name:'jpmemberName' , align:'left', width : 140, searchoptions:{sopt:['cn']}},
+					          {name:'grade', align:'center', width : 100, searchoptions:{sopt:['cn']}},
+					          {name:'experience', align:'center', width : 100, searchoptions:{sopt:['cn']}},
+					      	  {name:'keySkills',index:'options',align:'center',width:70, searchoptions:{sopt:['cn']}},	
+					      	  {name:'created', align:'center', width : 100, formatter: convertTimeStampToDate,search:false},
+					          {name:'modified', align:'center', width : 100, formatter: convertTimeStampToDate,search:false},
 					      	  {name:'options',index:'options',align:'center',width:70,editable: false,formatter:actionsLinkFormatter,search:false, sortable:false},				          
 					          ],
 					sortname: 'modified',
@@ -78,7 +83,7 @@ function drawTable()
 		            	   }
 				});
 		
-		jQuery("#jPMemberListTable").jqGrid('navGrid',"#jPMemberListPager",{addfunc:newUser,addtitle:'Add JP Member', searchtitle : "Find JP Members", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true});
+		jQuery("#jPMemberListTable").jqGrid('navGrid',"#jPMemberListPager",{addtitle:'Add JP Member', searchtitle : "Find JP Member", refreshtitle : "Reload View",edit:false,add:false,del:false,search:true,refresh:true});
 		$("#jPMemberListTable").css('overflow-x','hidden');
 		$("#jPMemberListTable").css('overflow-y','auto');
 		$(".ui-pg-selbox").css('width','50');
@@ -99,7 +104,7 @@ function drawTable()
 			}
 		var sortColName=jQuery("#jPMemberListTable").jqGrid("getGridParam","postData").sidx;
 		var sortOrder=jQuery("#jPMemberListTable").jqGrid("getGridParam","postData").sord;
-		var displayStart=(jQuery("#jPMemberListTable").jqGrid("getGridParam","postData").page-1)*displayLength; 
+		var displayStart=(jQuery("#jPMemberListTable").jqGrid("getGridParam","postData").page-1)*displayLength;
 		urlValue = urlValue+"?displayLength="+displayLength+"&searchString="+searchString+"&sortColName="+sortColName+"&sortOrder="+sortOrder+"&displayStart="+displayStart;
 	jQuery.ajax({
         url: urlValue,			            
@@ -107,7 +112,7 @@ function drawTable()
         complete: function(json,stat){			            	 
            if(stat=="success")  {
          	  var grid = jQuery("#jPMemberListTable")[0];
-              grid.addJSONData(JSON.parse(json.responseText));
+              grid.addJSONData(JSON.parse(json.responseText));              
            }
         }
      });
@@ -115,23 +120,54 @@ function drawTable()
 
 	function newJPMember()
 	{
-		$('#newJPMember').trigger("click");		
+			
 	}
 	
 function actionsLinkFormatter(cellvalue, options, rowObject)
 {
-	var jPmemberID = rowObject['jpmemberID'];
-	var jPmemberName = rowObject['jpMemberName'];
-	var jPMemberActions = 
-	/* "<a class='ui-pg-div ui-inline-edit' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='editUser(&quot;"+userID+"&quot;);'style='cursor:pointer; display: inline-table; float: none; ' title='Edit "+email+"'><span align='center' class='ui-icon ui-icon-pencil'></span></a>"+ */
-	"<a class='ui-pg-div ui-inline-del' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='deleteJPMember(&quot;"+jPmemberID+"&quot;);'style='display: inline-table; float: none; margin-left: 10px;' title='Delete "+jPmemberName+"'><span align='center' class='ui-icon ui-icon-trash'></span></a>";
-	return jPMemberActions ;
+	var jpmemberID = rowObject['jpmemberID'];
+	var jpmemberName = rowObject['jpmemberName'];
+	var userActions = 
+		"<a class='ui-pg-div ui-inline-edit' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='editJPMember(&quot;"+jpmemberID+"&quot;);'style='cursor:pointer; display: inline-table; float: none; ' title='Edit "+jpmemberName+"'><span align='center' class='ui-icon ui-icon-pencil'></span></a>"+
+		//"<a class='ui-pg-div ui-inline-edit' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' 'href="%{editJPMemberURL}"' style='cursor:pointer; display: inline-table; float: none; ' title='Edit "+jpmemberName+"'><span align='center' class='ui-icon ui-icon-pencil'></span></a>"+
+		"<a class='ui-pg-div ui-inline-del' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='deleteJPMember(&quot;"+jpmemberID+"&quot;);'style='display: inline-table; float: none; margin-left: 10px;' title='Delete "+jpmemberName+"'><span align='center' class='ui-icon ui-icon-trash'></span></a>";
+	return userActions;		
 }
 
-function deleteJPMember(jPmemberID)	
+/* function editJPMember(jpmemberID)
+{
+	var urlvalue=$("#editJPMemberURLHidden").val()+"?jpmemberID="+jpmemberID;
+	alert(urlvalue);
+	//window.location.href = urlvalue;
+	 var val = $.ajax( {
+		type : "POST",
+		url : urlvalue,		
+		dataType : "json",
+		async : false,
+		success : function(result)
+		{			
+			window.location.href = url;
+		}	 	
+		// success : function(result) 
+		//{
+		//	$("#jPMemberListTable").trigger("reloadGrid");						
+		//} 
+	});	 
+	} */
+	
+
+function editJPMember(jpmemberID)
+{
+		var urlvalue=$("#editJPMemberURLHidden").val()+"?jpmemberID="+jpmemberID;
+		document.forms['mainform'].action = urlvalue;
+		document.forms['mainform'].submit();
+
+}
+	
+function deleteJPMember(jpmemberID)	
 {
 		var $dialog = $('<div></div>')
-		.html("Are you sure you want to delete the member?")
+		.html("Are you sure?")
 		.dialog({
 			autoOpen: false,
 			title: 'Team Planner',
@@ -140,7 +176,7 @@ function deleteJPMember(jPmemberID)
 			modal: true,
 			buttons: {
 				"Delete": function() {
-					var urlvalue = $("#deleteJPMemberURLHidden").val()+"?jPmemberID="+jPmemberID;
+					var urlvalue = $("#deleteJPMemberURLHidden").val()+"?jpmemberID="+jpmemberID;
 					var val = $.ajax( {
 						type : "POST",
 						url : urlvalue,		

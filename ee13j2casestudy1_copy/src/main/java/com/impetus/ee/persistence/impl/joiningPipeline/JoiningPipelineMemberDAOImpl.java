@@ -1,7 +1,11 @@
 package com.impetus.ee.persistence.impl.joiningPipeline;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.criteria.Join;
 
@@ -12,10 +16,16 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.impetus.ee.common.QueryParameterDTO;
 import com.impetus.ee.domain.joiningPipeline.JoiningPipelineMember;
+import com.impetus.ee.domain.relation.ProjectJPMemberRelation;
+import com.impetus.ee.domain.relation.ProjectMemberRelation;
 import com.impetus.ee.domain.teamMember.TeamMember;
+import com.impetus.ee.domain.user.User;
 import com.impetus.ee.exception.daoLayer.DBException;
 import com.impetus.ee.persistence.api.joiningPipeline.JoiningPipelineMemberDAO;
+import com.impetus.ee.util.JoiningPipelineMemberObjectMapper;
+import com.impetus.ee.vo.JoiningPipelineMemberInfo;
 
 @Repository("JoiningPipelineMemberDAO")
 public class JoiningPipelineMemberDAOImpl implements JoiningPipelineMemberDAO {
@@ -66,11 +76,9 @@ public class JoiningPipelineMemberDAOImpl implements JoiningPipelineMemberDAO {
 		try
 		{	session=sessionFactory.openSession();
 			if(jPMember!=null)
-			{	
-				trns=session.beginTransaction();
-				
-			
-				session.update(jPMember);
+			{	System.out.println("Going to update now");
+				trns=session.beginTransaction();			
+				session.saveOrUpdate(jPMember);
 				trns.commit();
 			}
 		}
@@ -106,7 +114,22 @@ public class JoiningPipelineMemberDAOImpl implements JoiningPipelineMemberDAO {
 		
 		try{
 				session =  sessionFactory.openSession();
-				jPMemberList=session.createQuery("from JoiningPipelineMember where supervisorName='"+supervisorName+"'").list();
+				//jPMemberList=session.createQuery("from JoiningPipelineMember where supervisorName='"+supervisorName+"'").list();
+				jPMemberList=session.createQuery("from JoiningPipelineMember").list();
+				System.out.println("jPMemberList size:"+jPMemberList.size());
+				/*Iterator<JoiningPipelineMember> itr = jPMemberList.iterator();
+				while(itr.hasNext())
+				{
+					Set<ProjectJPMemberRelation> pmr=itr.next().getProjectJPMemberRelation();
+					
+					if(pmr!=null && pmr.size()>0)
+					{	System.out.println("pmr size:"+pmr.size());
+						System.out.println("pmr"+pmr);
+						
+					}	
+					
+				}	*/
+
 			
 			}
 		catch(HibernateException e)
@@ -132,7 +155,10 @@ public class JoiningPipelineMemberDAOImpl implements JoiningPipelineMemberDAO {
 			
 			JoiningPipelineMember jPMember=(JoiningPipelineMember)session.get(JoiningPipelineMember.class, jPmemberID);
 			if(jPMember!=null)
-			{	session.delete(jPMember);
+			{
+				System.out.println("inside here");
+				session.createQuery("delete from JoiningPipelineMember where jpmemberID="+jPmemberID).executeUpdate();
+				//session.delete(jPMember);
 				trns.commit();
 				return true;
 			}
@@ -170,13 +196,11 @@ public class JoiningPipelineMemberDAOImpl implements JoiningPipelineMemberDAO {
 			{
 				session =  sessionFactory.openSession();
 				jPMember=(JoiningPipelineMember)session.get(JoiningPipelineMember.class, jPmemberId);			
-				
+				System.out.println("JP Member Name:"+jPMember.getJpmemberName());
 			}	
 			catch(HibernateException e)
-			{
-				
-				
-				throw new DBException("error in getting tem member by id",e);
+			{		
+				throw new DBException("error in getting Joining Pipeline member by id",e);
 			}
 			finally
 			{
@@ -186,4 +210,73 @@ public class JoiningPipelineMemberDAOImpl implements JoiningPipelineMemberDAO {
 			return jPMember;
 			
 	}
+	public int addProjectForJoiningPipelineMember(int jPmemberId,ProjectJPMemberRelation projectJPMemberRelation) throws DBException {
+		Transaction trns=null;
+		Session session=null;
+		JoiningPipelineMember joiningPipelineMember=null;
+		try
+		{	
+			session=sessionFactory.openSession();
+			trns=session.beginTransaction();
+			if(projectJPMemberRelation!=null)
+			{	Set<ProjectJPMemberRelation> projectJPMemberRelations=new HashSet<ProjectJPMemberRelation>();
+				
+				joiningPipelineMember = getjPMemberByID(jPmemberId);
+				projectJPMemberRelation.setJoiningPipelineMember(joiningPipelineMember);
+				projectJPMemberRelations.add(projectJPMemberRelation);
+				joiningPipelineMember.setProjectJPMemberRelation(projectJPMemberRelations);
+				session.saveOrUpdate(joiningPipelineMember);
+				trns.commit();
+			}
+		}
+		
+		catch(HibernateException e)
+		{
+			
+			if(trns!=null)
+			{	
+				trns.rollback();
+			}
+			throw new DBException("error in addProjectForJPMember insertion",e);
+			
+		}
+		finally
+		{
+			if(session!=null)
+			{	
+				session.close();
+			}
+		}
+		return 0;
+	}	
+	
+	@Override
+	public List<JoiningPipelineMemberInfo> getJoiningPipelineMembers(QueryParameterDTO queryParameterDTO) 
+	{
+		String pageQuery="from JoiningPipelineMember where jpmemberName like '%"+queryParameterDTO.getSearchString()+"%' order by "+ queryParameterDTO.getSortColName()+" "+queryParameterDTO.getSortOrder()+"" ;
+		Session session = sessionFactory.getCurrentSession();
+		org.hibernate.Query query1= session.createQuery(pageQuery);
+		query1.setMaxResults(queryParameterDTO.getDisplayLength());
+		query1.setFirstResult(queryParameterDTO.getDisplayStart());
+		System.out.println("Sunny");
+		ArrayList<JoiningPipelineMember> jpMemberList=(ArrayList<JoiningPipelineMember>) query1.list();	
+		System.out.println("Vijay");
+		Iterator<JoiningPipelineMember> itr = jpMemberList.iterator();
+		List<JoiningPipelineMemberInfo> jPMemberInfoList = new ArrayList<JoiningPipelineMemberInfo>();
+		int i=0;
+		while (itr.hasNext() && i != jpMemberList.size())
+		{
+			System.out.println("Inside");
+			 JoiningPipelineMemberInfo x = new JoiningPipelineMemberInfo();
+			 x = JoiningPipelineMemberObjectMapper.toJoiningPipelineMemberInfo(jpMemberList.get(i));
+			 jPMemberInfoList.add(x);
+		}
+		
+		List<BigInteger> totalDisplayRecords =session.createSQLQuery("select count(*) from JoiningPipelineMembers where jpmemberName like '%"+queryParameterDTO.getSearchString()+"%'").list();
+		List<BigInteger> totalRecords = session.createSQLQuery("select count(*) from JoiningPipelineMembers").list();
+		queryParameterDTO.setTotalRecords((totalRecords.get(0)).intValue());
+		queryParameterDTO.setTotalDisplayRecords((totalDisplayRecords.get(0)).intValue());
+		return jPMemberInfoList;
+	}	
+	
 }

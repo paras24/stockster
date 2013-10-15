@@ -11,7 +11,7 @@
 <s:form action="addTeamMember" >
 		<s:textfield name="teamMemberInfo.teamMemberName" label="Name" />
 		<s:textfield name="teamMemberInfo.grade" label="Level" />
-		<s:textfield name="teamMemberInfo.experirnce" label="Experirnce" />
+		<s:textfield name="teamMemberInfo.experience" label="Experience" />
 		<s:textfield name="teamMemberInfo.groupHeadName" label="GroupHeadName" />
 		<s:textfield name="teamMemberInfo.status" label="Status" />
 		

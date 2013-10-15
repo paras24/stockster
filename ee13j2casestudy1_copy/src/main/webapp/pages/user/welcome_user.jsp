@@ -37,7 +37,7 @@ $(document).ready(function()
 function drawTable()
 {
 	
-		$("#userListTable").jqGrid( 
+	var grid=$("#userListTable").jqGrid( 
 				{
 					datatype: function(postdata) {
 						gridInitialize();
@@ -61,7 +61,7 @@ function drawTable()
 					beforeSelectRow:function(){return false},
 					viewrecords: true,				
 		            rowNum:10,		            
-		            rowList:[10,20,30],
+		            rowList:[10,20,30],		            
 		            jsonReader : {
 		                root: "users",
 		                total: "totalPages",
@@ -75,8 +75,21 @@ function drawTable()
 		            	     Reset: "Reset",
 		            	   }
 				});
-		
-		jQuery("#userListTable").jqGrid('navGrid',"#userListPager",{addfunc:newUser,addtitle:'Add User', searchtitle : "Find Users", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true});
+		 
+		jQuery("#userListTable").jqGrid('navGrid',"#userListPager",{addfunc:newUser,addtitle:'Add User', searchtitle : "Find Users", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true},{},{},{},{beforeShowSearch: function($form)
+			{
+			$('#searchmodfbox_'+grid[0].id).width(700);
+			var dlgDiv = $('#searchmodfbox_'+grid[0].id);
+			var parentDiv = dlgDiv.parent(); // div#gbox_list
+            var dlgWidth = dlgDiv.width();
+            var parentWidth = parentDiv.width();
+            var dlgHeight = dlgDiv.height();
+            var parentHeight = parentDiv.height();
+            //dlgDiv[0].style.top = Math.round((parentHeight-dlgHeight)/2) + "px";
+            dlgDiv[0].style.top = "450px";
+            dlgDiv[0].style.left = Math.round((parentWidth-dlgWidth)/2 +120) + "px";
+			return true;
+		} });		
 		$("#userListTable").css('overflow-x','hidden');
 		$("#userListTable").css('overflow-y','auto');
 		$(".ui-pg-selbox").css('width','50');
