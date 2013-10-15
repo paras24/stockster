@@ -8,3 +8,4 @@ INSERT INTO `users` VALUES (1,'2013-10-13 18:36:08','2013-10-13 18:36:08','bhavn
 
 insert into locations values(1,'Noida'),(2,'Bangalore'),(3,'Indore');
 
+insert into opportunity values(1,'2013-05-05 12:09:06','2013-05-05 12:09:06',3,4,'primary skills','2013-05-25 12:09:06','commit','open','second','2013-05-05 12:09:06','sub',1,1,1);
