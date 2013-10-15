@@ -22,15 +22,11 @@ public class DeleteProjectAction extends ActionSupport{
 		
 		return SUCCESS;
 	}
-	/**
-	 * @return the userID
-	 */
+	
 	public int getProjectID() {
 		return projectID;
 	}
-	/**
-	 * @param userID the userID to set
-	 */
+
 	public void setProjectID(int projectID) {
 		this.projectID = projectID;
 	}

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.impetus.ee.common.QueryParameterDTO;
+import com.impetus.ee.domain.joiningPipeline.JoiningPipelineMember;
 import com.impetus.ee.vo.JoiningPipelineMemberInfo;
 import com.impetus.ee.vo.TeamMemberInfo;
 @Transactional
@@ -18,4 +20,7 @@ public interface JoiningPipelineMemberService {
 	boolean removejPMemberById(int jPmemberId);
 	
 	JoiningPipelineMemberInfo getjPMemberByID(int jPmemberId);
+
+	List<JoiningPipelineMemberInfo> getJoiningPipelineMembers(
+			QueryParameterDTO queryParameterDTO);
 }

@@ -1,5 +1,7 @@
 <%@taglib prefix="springsec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div id="header">
 <div class="container">
  <div id="welcomeLine" class="row">
@@ -22,7 +24,7 @@
 		<div class="nav pull-left page-header">
 	<!--  <li class=""><a href="special_offer.html">Team View</a></li>
 	 <li class=""><a href="normal.html">Project</a></li> -->
-	 <h1>Team Planner</h1>
+	 <h1 style="display:inline">Team Planner</h1><c:if test="${not empty implementationVersion}" ><sub>Version : ${applVersion}.${implementationVersion}</sub></c:if>
 	 </div>
     <ul id="topMenu" class="nav pull-right">
 	<!--  <li class=""><a href="special_offer.html">Team View</a></li>

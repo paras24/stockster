@@ -32,7 +32,7 @@ public class TeamMemberServiceTest {
 		TeamMemberInfo teamMemberInfo=new TeamMemberInfo();
 		teamMemberInfo.setTeamMemberName("member2");
 		teamMemberInfo.setGrade("G5");
-		teamMemberInfo.setExperirnce(1);
+		teamMemberInfo.setExperience(1);
 		teamMemberInfo.setKeySkills("java,sql,css");
 		teamMemberInfo.setRemarks("no commemnts");
 		teamMemberInfo.setGroupHeadName("head1");

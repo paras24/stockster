@@ -20,13 +20,13 @@ public class MemberObjectMapper {
 		teamMemberInfo.setMemberID(teamMember.getMemberID());
 		teamMemberInfo.setTeamMemberName(teamMember.getMemberName());
 		teamMemberInfo.setDateOfJoining(teamMember.getDateOfJoining());
-		teamMemberInfo.setExperirnce(teamMember.getExperirnce());
+		teamMemberInfo.setExperience(teamMember.getExperience());
 		teamMemberInfo.setKeySkills(teamMember.getKeySkills());
 		teamMemberInfo.setRemarks(teamMember.getRemarks());
 		teamMemberInfo.setGrade(teamMember.getGrade());
 		teamMemberInfo.setStatus(teamMember.getStatus());
 		teamMemberInfo.setGroupHeadName(teamMember.getGroupHeadName());
-		Set<ProjectMemberRelation> projectMemberRelations = teamMember.getProjectMemberRelation();
+	/*	Set<ProjectMemberRelation> projectMemberRelations = teamMember.getProjectMemberRelation();
 		if(projectMemberRelations!=null)
 		{
 			List<AssignedProjectInfo> assignedProjectsList =new ArrayList<AssignedProjectInfo>(); 
@@ -41,7 +41,7 @@ public class MemberObjectMapper {
 				assignedProjectsList.add(assignedProjectInfo);
 			}
 			teamMemberInfo.setAssignedProjectInfo(assignedProjectsList);
-		}
+		}*/
 		return teamMemberInfo;
 		
 	}
@@ -52,7 +52,7 @@ public class MemberObjectMapper {
 		teamMember.setMemberID(teamMemberInfo.getMemberID());
 		teamMember.setMemberName(teamMemberInfo.getTeamMemberName());
 		teamMember.setDateOfJoining(teamMemberInfo.getDateOfJoining());
-		teamMember.setExperirnce(teamMemberInfo.getExperirnce());
+		teamMember.setExperience(teamMemberInfo.getExperience());
 		teamMember.setKeySkills(teamMemberInfo.getKeySkills());
 		teamMember.setRemarks(teamMemberInfo.getRemarks());
 		teamMember.setGrade(teamMemberInfo.getGrade());

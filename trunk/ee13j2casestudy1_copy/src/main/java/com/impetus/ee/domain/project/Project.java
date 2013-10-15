@@ -12,10 +12,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
 
 import com.impetus.ee.domain.relation.ProjectMemberRelation;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 
 @Entity
 @Table(name="Project")
@@ -46,7 +48,16 @@ public class Project {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "relationKey.project")
 	private Set<ProjectMemberRelation> projectMemberRelation = new HashSet<ProjectMemberRelation>(0);
 	
+	@OneToMany
+	@JoinColumn(name="subProjectID") 
+	private Set<Project> subProjects;
 	
+	public Set<Project> getSubProjects() {
+		return subProjects;
+	}
+	public void setSubProjects(Set<Project> subProjects) {
+		this.subProjects = subProjects;
+	}
 	public int getProjectId() {
 		return projectId;
 	}
@@ -56,6 +67,7 @@ public class Project {
 	public String getProjectName() {
 		return projectName;
 	}
+	
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}

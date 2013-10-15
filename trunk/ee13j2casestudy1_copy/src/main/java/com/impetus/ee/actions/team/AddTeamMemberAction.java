@@ -13,8 +13,9 @@ public class AddTeamMemberAction extends ActionSupport{
 	private TeamMemberService teamMemberService;
 	private TeamMemberInfo teamMemberInfo;
 	@Action(value="addTeamMember", results={
-			@Result(name="success",type="redirect", location="listAllTeamMemberJson.action"),
-			@Result(name=INPUT,type="redirect",location="showTeamMemberForm.action")
+			@Result(name="success",type="tiles", location="teamMembers.tiles"),
+			@Result(name=INPUT,type="redirect",location="showTeamMemberForm.action"),
+			@Result(name=ERROR,type="redirect",location="showTeamMemberForm.action")
 	})
 	public String addTeamMember() 
 	{

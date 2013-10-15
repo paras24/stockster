@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.Validation;
+@Validation
 public class TeamMemberInfo {
 	
 	
 	private Long memberID;
 	private String teamMemberName;
 	private String grade;
-	private int experirnce;
+	private int experience;
 	private String keySkills;
 	private String remarks;
 	private Date dateOfJoining;
@@ -20,10 +23,11 @@ public class TeamMemberInfo {
 	private String subProject;
 	private String supervisor;
 	private List<AssignedProjectInfo> assignedProjectInfo =new ArrayList<AssignedProjectInfo>(); 
-	
+	@RequiredFieldValidator( message = "The name is required" )
 	public String getTeamMemberName() {
 		return teamMemberName;
 	}
+	
 	public void setTeamMemberName(String teamMemberName) {
 		this.teamMemberName = teamMemberName;
 	}
@@ -33,12 +37,7 @@ public class TeamMemberInfo {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
-	public int getExperirnce() {
-		return experirnce;
-	}
-	public void setExperirnce(int experirnce) {
-		this.experirnce = experirnce;
-	}
+	
 	public String getKeySkills() {
 		return keySkills;
 	}
@@ -86,7 +85,7 @@ public class TeamMemberInfo {
 	public String toString() {
 		return "TeamMemberInfo [memberID=" + memberID + ", teamMemberName="
 				+ teamMemberName + ", grade=" + grade + ", experirnce="
-				+ experirnce + ", keySkills=" + keySkills + ", remarks="
+				+ experience + ", keySkills=" + keySkills + ", remarks="
 				+ remarks + ", dateOfJoining=" + dateOfJoining
 				+ ", groupHeadName=" + groupHeadName + ", status=" + status
 				+ ", assignedProjectInfo=" + assignedProjectInfo + "]";
@@ -120,5 +119,11 @@ public class TeamMemberInfo {
 	}
 	public String getSupervisor() {
 		return supervisor;
+	}
+	public void setExperience(int experience) {
+		this.experience = experience;
+	}
+	public int getExperience() {
+		return experience;
 	}
 }

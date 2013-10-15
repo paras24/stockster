@@ -1,25 +1,28 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="springsec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<s:url var="userUpdateURL" value="/user/update"/>
-<input type="hidden" id="userUpdateURLHiddenID" value="${userUpdateURL}"/>
+<s:url var="projectUpdateURL" value="/project/addProject"/>
+<input type="hidden" id="projectUpdateURLHiddenID" value="${projectUpdateURL}"/>
+<s:form id="newProjectForm" theme="bootstrap" cssClass="form-horizontal">
 <s:actionerror theme="bootstrap"/>
-<s:form action="addProject" id="newProject" theme="bootstrap" cssClass="form-horizontal">
-     	<s:textfield name="projectInfo.projectName" label="ProjectName" />
-		<s:textfield name="projectInfo.subProjectName" label="SubProjectName" />
-		<s:textfield name="projectInfo.groupHeadName" label="GroupHeadName" />
-		<s:textfield name="projectInfo.pointOfContact" label="PointOfContact" />
-		<s:textfield name="projectInfo.supervisorName" label="SupervisorName" />
-<input type="button" id="submitProjectForm" cssClass="btn" value="Save"/>
+     	<s:textfield name="projectName" label="ProjectName" />
+		<s:textfield name="subProjectName" label="SubProjectName" />
+		<s:textfield name="groupHeadName" label="GroupHeadName" />
+		<s:textfield name="pointOfContact" label="PointOfContact" />
+		<s:textfield name="supervisorName" label="SupervisorName" />
+		<input type="button" id="submitProjectForm" cssClass="btn" value="Save"/>
+<%-- <s:submit /> --%>
 </s:form>
+
 <script type="text/javascript">
 
 $(document).ready(function() 
 {	
-	$("submitProjectForm").click(function()
+	$("#submitProjectForm").click(function()
 	{
-	var urlvalue = $("#userUpdateURLHiddenID").val();
-	var str = $("#newProject").serialize();
+	var urlvalue = $("#projectUpdateURLHiddenID").val();
+	var str = $("#newProjectForm").serialize();
+	alert(str);
 	var val = $.ajax({
 		type : "POST",
 		url : urlvalue,
@@ -36,7 +39,7 @@ $(document).ready(function()
 				else
 				{
 					$.fancybox.close();
-					$("##projectListTable").trigger("reloadGrid");
+					$("#projectListTable").trigger("reloadGrid");
 				}
 			}
 		});

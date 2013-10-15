@@ -14,9 +14,10 @@ import org.springframework.stereotype.Component;
 
 import com.impetus.ee.common.QueryParameterDTO;
 import com.impetus.ee.domain.joiningPipeline.JoiningPipelineMember;
+import com.impetus.ee.util.*;
 import com.impetus.ee.services.api.joiningPipeline.JoiningPipelineMemberService;
 import com.impetus.ee.vo.JoiningPipelineMemberInfo;
-import com.impetus.ee.vo.TeamMemberInfo;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 @Component
@@ -32,8 +33,16 @@ public class RetrieveJoiningPipelineMembersAction extends ActionSupport implemen
 	private int currentPage;
 	private int totalPages;
 	private List<JoiningPipelineMemberInfo> jPMemberInfoList ;	
-	
-	
+	private JoiningPipelineMemberInfo joiningPipelineMemberInfo;
+	private int jpmemberID;
+	public int getJpmemberID() {
+		return jpmemberID;
+	}
+
+	public void setJpmemberID(int jpmemberID) {
+		this.jpmemberID = jpmemberID;
+	}
+
 	public List<JoiningPipelineMemberInfo> getJoiningPipelineMemberInfoList() {
 		return jPMemberInfoList;
 	}
@@ -44,7 +53,7 @@ public class RetrieveJoiningPipelineMembersAction extends ActionSupport implemen
 		for(int i=0;i<this.jPMemberInfoList.size();i++){
 			System.out.println(i+1+" :"+this.jPMemberInfoList.get(i).getJpmemberID());
 			System.out.println(i+1+""+this.jPMemberInfoList.get(i).getGrade());
-		}*/		
+		}*/	
 	}
 	
 	@Action(value="jPMemberListJson", results={
@@ -60,8 +69,16 @@ public class RetrieveJoiningPipelineMembersAction extends ActionSupport implemen
 		jPmember_new.setGrade("G5");
 		jPmember_new.setExperience(2);
 		jPmember_new.setKeySkills("c++");
-		jPMemberInfoList_new.add(jPmember_new);*/
-		//setJoiningPipelineMemberInfoList(jPMemberInfoList_new);
+		jPMemberInfoList_new.add(jPmember_new);
+		setJoiningPipelineMemberInfoList(jPMemberInfoList_new);*/
+//		List<JoiningPipelineMemberInfo> jPMembers = jPMemberService.getJoiningPipelineMembers(queryParameterDTO);
+//		int modulus = queryParameterDTO.getTotalDisplayRecords()% queryParameterDTO.getDisplayLength();
+//		setTotalPages(queryParameterDTO.getTotalDisplayRecords()/ queryParameterDTO.getDisplayLength());
+//		if (modulus != 0 || getTotalPages() == 0) {
+//			setTotalPages(getTotalPages() + 1);
+//		}
+//		setCurrentPage(queryParameterDTO.getDisplayStart()/ queryParameterDTO.getDisplayLength() + 1);	
+//		setJoiningPipelineMemberInfoList(jPMembers);
 		setJoiningPipelineMemberInfoList(jPMemberService.getJPMemberBySupervisor("sp"));
 		return SUCCESS;
 	}
@@ -80,4 +97,79 @@ public class RetrieveJoiningPipelineMembersAction extends ActionSupport implemen
 		return queryParameterDTO;
 	}	
 	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+	
+	@Action(value="showJoiningPipelineMemberForm", results={
+			@Result(name="success",type="tiles", location="showJoiningPipelineMemberForm.tiles")
+	})
+	public String showAddJoiningPipelineMemberForm()
+	{	
+		System.out.println("Hi Sunny");
+		return SUCCESS;
+	}
+	
+	@Action(value="addJoiningPipelineMember", results={
+			@Result(name="success",type="tiles", location="joiningPipeline.tiles"),
+			@Result(name=INPUT,type="redirect",location="showJoiningPipelineMemberForm.action"),
+			@Result(name=ERROR,type="redirect",location="showJoiningPipelineMemberForm.action")
+	})
+
+	public String addJoiningPipelineMember() 
+	{
+		System.out.println("In Add ");
+		System.out.println("JP Member ID:"+joiningPipelineMemberInfo.getJpmemberID());
+		System.out.println("JP Member Name:"+joiningPipelineMemberInfo.getJpmemberName());
+		Long id=(long) jPMemberService.addJPMember(joiningPipelineMemberInfo);
+		if(id != null){
+			return SUCCESS;
+		}else{
+			return ERROR;
+		}
+	}
+	public JoiningPipelineMemberInfo getJoiningPipelineMemberInfo() {
+		System.out.println("aaya");
+		return joiningPipelineMemberInfo;
+	}
+	public void setJoiningPipelineMemberInfo(JoiningPipelineMemberInfo jPMemberInfo) {
+		this.joiningPipelineMemberInfo = jPMemberInfo;
+	}
+	
+	@Action(value="editJPMemberForm", results={
+			@Result(name="success",type="tiles", location="editJoiningPipelineMemberForm.tiles")
+	})
+	public String editJPMember()
+	{
+		System.out.println("in Edit");
+		System.out.println("ID:"+jpmemberID);
+		joiningPipelineMemberInfo = jPMemberService.getjPMemberByID(jpmemberID);
+		System.out.println("Member Name:"+joiningPipelineMemberInfo.getJpmemberName());
+		return SUCCESS;
+	}
+	
+	@Action(value="editJoiningPipelineMember", results={
+			@Result(name="success",type="tiles", location="joiningPipeline.tiles"),
+			@Result(name=INPUT,type="redirect",location="editJPMemberForm.action"),
+			@Result(name=ERROR,type="redirect",location="editJPMemberForm.action")
+	})
+	
+	public String editJoiningPipelineMember()
+	{
+		jPMemberService.updateJPMember(joiningPipelineMemberInfo);
+		return SUCCESS;
+		
+	}
 }

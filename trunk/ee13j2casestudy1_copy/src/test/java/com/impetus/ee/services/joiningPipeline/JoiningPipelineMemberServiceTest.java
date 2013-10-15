@@ -26,7 +26,7 @@ public class JoiningPipelineMemberServiceTest {
 	private JoiningPipelineMemberInfo getjPMemberInfo()
 	{
 		JoiningPipelineMemberInfo jPMemberInfo=new JoiningPipelineMemberInfo();
-		jPMemberInfo.setJpMemberName("jPmember5");
+		jPMemberInfo.setJpmemberName("jPmember5");
 		jPMemberInfo.setGrade("G5");
 		jPMemberInfo.setExperience(2);
 		jPMemberInfo.setKeySkills("c++,sql,css");
@@ -95,7 +95,7 @@ public class JoiningPipelineMemberServiceTest {
 		JoiningPipelineMemberInfo jPMemberInfo = getJoiningPipelineMemberService().getjPMemberByID(jPMemberId);
 		if(jPMemberInfo!=null)
 		{
-			System.out.println("MemberName="+jPMemberInfo.getJpMemberName());
+			System.out.println("MemberName="+jPMemberInfo.getJpmemberName());
 			System.out.println("Grade="+jPMemberInfo.getGrade());
 			System.out.println("Experience="+jPMemberInfo.getExperience());
 			System.out.println("Skills="+jPMemberInfo.getKeySkills());

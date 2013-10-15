@@ -42,7 +42,7 @@ public class TeamMemberDAOImpl implements TeamMemberDAO
 		
 		catch(HibernateException e)
 		{
-			
+			e.printStackTrace();
 			if(trns!=null)
 			{	
 				trns.rollback();
@@ -108,9 +108,10 @@ public class TeamMemberDAOImpl implements TeamMemberDAO
 		
 		try{
 				session =  sessionFactory.openSession();
-				teamMemberList=session.createQuery("from TeamMember where groupHeadName='"+groupHeadName+"'").list();
+//				teamMemberList=session.createQuery("from TeamMember where groupHeadName='"+groupHeadName+"'").list();
+				teamMemberList=session.createQuery("from TeamMember").list();
 				System.out.println("teamMemberList size:"+teamMemberList.size());
-				Iterator<TeamMember> itr = teamMemberList.iterator();
+			/*	Iterator<TeamMember> itr = teamMemberList.iterator();
 				while(itr.hasNext())
 				{
 					Set<ProjectMemberRelation> pmr=itr.next().getProjectMemberRelation();
@@ -121,13 +122,14 @@ public class TeamMemberDAOImpl implements TeamMemberDAO
 						
 					}	
 					
-				}	
+				}	*/
 				
 			}
 		catch(HibernateException e)
 		{
 			
 			throw new DBException("DB exception while retrieving team member",e);
+			
 		}
 		finally
 		{

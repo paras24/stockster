@@ -5,7 +5,7 @@
 
 <link href="<s:url value="/resources/assets/css/ui.jqgrid.css"/>" rel="stylesheet"/>
 
-
+<link rel="stylesheet" href="<s:url value="/resources/assets/js/fancybox/jquery.fancybox-1.3.4.css"/>" media="screen" type="text/css" />
 <script type="text/javascript" language="javascript" src="<s:url value="/resources/assets/js/fancybox/jquery.mousewheel-3.0.4.pack.js"/>"></script>
 <script type="text/javascript" language="javascript" src="<s:url value="/resources/assets/js/fancybox/jquery.fancybox-1.3.4.pack.js"/>"></script>	
 <script type="text/javascript" language="javascript" src="<s:url value="/resources/assets/js/grid.locale-en.js"/>"></script>
@@ -37,7 +37,7 @@ $(document).ready(function()
 function drawTable()
 {
 	
-		$("#projectListTable").jqGrid( 
+		var grid = $("#projectListTable").jqGrid( 
 				{
 					datatype: function(postdata) {
 						gridInitialize();
@@ -87,7 +87,20 @@ function drawTable()
 		            	   }            	   
 				});
 		
-		jQuery("#projectListTable").jqGrid('navGrid',"#projectListPager",{addfunc:newProject,addtitle:'Add Project', searchtitle : "Find Projects", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true});
+		jQuery("#projectListTable").jqGrid('navGrid',"#projectListPager",{addfunc:newProject,addtitle:'Add Project', searchtitle : "Find Projects", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true},{},{},{},{beforeShowSearch: function($form)
+			{
+			$('#searchmodfbox_'+grid[0].id).width(700);
+			var dlgDiv = $('#searchmodfbox_'+grid[0].id);
+			var parentDiv = dlgDiv.parent(); // div#gbox_list
+            var dlgWidth = dlgDiv.width();
+            var parentWidth = parentDiv.width();
+            var dlgHeight = dlgDiv.height();
+            var parentHeight = parentDiv.height();
+            //dlgDiv[0].style.top = Math.round((parentHeight-dlgHeight)/2) + "px";
+            dlgDiv[0].style.top = "450px";
+            dlgDiv[0].style.left = Math.round((parentWidth-dlgWidth)/2 +120) + "px";
+			return true;
+			}});
 		$("#projectListTable").css('overflow-x','hidden');
 		$("#projectListTable").css('overflow-y','auto');
 		$(".ui-pg-selbox").css('width','50');
@@ -167,7 +180,7 @@ function deleteProject(projectId)
 			modal: true,
 			buttons: {
 				"Delete": function() {
-					var urlvalue = $("#deleteProjectURLHidden").val()+"?userID="+userID;
+					var urlvalue = $("#deleteProjectURLHidden").val()+"?projectId="+projectId;
 					var val = $.ajax( {
 						type : "POST",
 						url : urlvalue,		

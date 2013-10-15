@@ -1,37 +1,39 @@
 package com.impetus.ee.actions.joiningPipeline;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.ResultPath;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.impetus.ee.services.api.joiningPipeline.JoiningPipelineMemberService;
 import com.opensymphony.xwork2.ActionSupport;
-
+@Component
+@Scope("prototype")
+@Namespace("/joiningPipeline")
+@ResultPath(value="/")
 public class DeleteJoiningPipelineMembersAction extends ActionSupport {
 
 	@Autowired
 	private JoiningPipelineMemberService jPMemberService;
-	private int jPMemberID;
+	private int jpmemberID;
 	@Action(value="deleteJPMember", results={
 			@Result(name="success",type="json")
 	})
 	public String deleteJPMember() 
 	{
-		
-		jPMemberService.removejPMemberById(jPMemberID);
+		System.out.println("In delete");
+		System.out.println("ID:"+jpmemberID);		
+		jPMemberService.removejPMemberById(jpmemberID);
 		
 		return SUCCESS;
 	}
-	/**
-	 * @return the userID
-	 */
-	public int getJPMemberID() {
-		return jPMemberID;
+	public int getJpmemberID() {
+		return jpmemberID;
 	}
-	/**
-	 * @param userID the userID to set
-	 */
-	public void setJPMemberID(int jPMemberID) {
-		this.jPMemberID = jPMemberID;
+	public void setJpmemberID(int jpmemberID) {
+		this.jpmemberID = jpmemberID;
 	}
 }
