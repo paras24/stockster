@@ -13,12 +13,12 @@
 
 
 <s:url var = "opportunityListJSONURL" value="/opportunity/opportunityListJson.action"/>
-<%-- <s:url var = "deleteUserURL" value="/user/delete.action"/> --%>
-<input type="hidden" id="userListJSONURLHidden" value="${opportunityListJSONURL}"/>
+<%-- <s:url var = "deleteopportunityURL" value="/opportunity/delete.action"/> --%>
+<input type="hidden" id="opportunityListJSONURLHidden" value="${opportunityListJSONURL}"/>
 
-<%-- <input type="hidden" id="deleteUserURLHidden" value="${deleteUserURL}"/>
-<s:url var="form" value="/user/form"/>
-<a href="${form}" id="newUser"></a> --%>
+<%-- <input type="hidden" id="deleteopportunityURLHidden" value="${deleteopportunityURL}"/>
+<s:url var="form" value="/opportunity/form"/>
+<a href="${form}" id="newopportunity"></a> --%>
 <table id="opportunityListTable">
 </table>
 <div id="opportunityListPager"></div>
@@ -26,7 +26,7 @@
 $(document).ready(function() 
 {	
 	drawTable();
-	/* $('#newUser').fancybox({				
+	/* $('#newopportunity').fancybox({				
 		 autoDimensions: false,
 		 onComplete: function() {
 		 	$.fancybox.resize();
@@ -48,23 +48,24 @@ function drawTable()
 					height:"100%",
 					sortname : 'modified',
 					sortorder : 'desc',
-					colNames:['ID','Project','Sub Project', 'Contact', 'Requested on','People required','Location','Start on','Duration','Type','Status'],
+					colNames:['ID','Project','Sub Project', 'Contact', 'Requested on','People required','Location','Start on','Duration','Type','Status','Action'],
+					//'Project'
 					colModel:[
-							  {name:'Id', hidden:true},
-							  {name:'project.projectName' , align:'left', width : 140, searchoptions:{sopt:['cn']}},
-					          {name:'subprojectName', align:'center', width : 100,search:false},
-					          {name:'contactPoint.memberName', align:'center', width : 100,search:false},
-					          {name:'requestDate', align:'center', width : 100, formatter: convertTimeStampToDate,search:false},
-					          {name:'peopleRequiredCount', align:'center', width : 100,search:false},
+							  {name:'opportunityID', hidden:true},
+							  {name:'projectName' , align:'center', width : 140, searchoptions:{sopt:['cn']}},
+					          {name:'subProjectname', align:'center', width : 100,search:false},
+					          {name:'pointOfContact', align:'center', width : 100,search:false},
+					          {name:'requestDate', align:'center', width : 150, formatter: convertTimeStampToDate,search:false},
+					          {name:'requirement', align:'center', width : 100,search:false},
 					          {name:'location', align:'center', width : 100,search:false},
-					          {name:'startDateOfResources', align:'center', width : 100, formatter: convertTimeStampToDate,search:false},
+					          {name:'startdate', align:'center', width : 150, formatter: convertTimeStampToDate,search:false},
 					          {name:'duration', align:'center', width : 100,search:false},
-					          {name:'requirementType', align:'center', width : 100,search:false},
-					          {name:'requirementStatus', align:'center', width : 100,search:false},
-					      	 // {name:'options',index:'options',align:'center',width:70,editable: false,formatter:actionsLinkFormatter,search:false, sortable:false},			          
+					          {name:'type', align:'center', width : 100,search:false},
+					          {name:'status', align:'center', width : 100,search:false},
+					      	  {name:'options',index:'options',align:'center',width:70,editable: false,formatter:actionsLinkFormatter,search:false, sortable:false},			          
 					          ],
 					sortname: 'modified',
-					emptyrecords: "No users found.",
+					emptyrecords: "No opportunitys found.",
 					beforeSelectRow:function(){return false},
 					viewrecords: true,				
 		            rowNum:10,		            
@@ -77,13 +78,13 @@ function drawTable()
 		                repeatitems: false,	                
 		              },	   
 		            search : {
-		            	     caption: "Find User",
+		            	     caption: "Find opportunity",
 		            	     Find: "Find",
 		            	     Reset: "Reset",
 		            	   }
 				});
 		
-		jQuery("#opportunityListTable").jqGrid('navGrid',"#opportunityListPager",{addfunc:newUser,addtitle:'Add User', searchtitle : "Find Users", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true});
+		jQuery("#opportunityListTable").jqGrid('navGrid',"#opportunityListPager",{addfunc:newopportunity,addtitle:'Add opportunity', searchtitle : "Find opportunitys", refreshtitle : "Reload View",edit:false,add:true,del:false,search: true, refresh:true});
 		$("#opportunityListTable").css('overflow-x','hidden');
 		$("#opportunityListTable").css('overflow-y','auto');
 		$(".ui-pg-selbox").css('width','50');
@@ -96,7 +97,7 @@ function drawTable()
 
 	function gridInitialize() {
 		
-		var urlValue = $('#userListJSONURLHidden').val();
+		var urlValue = $('#opportunityListJSONURLHidden').val();
 		var displayLength=jQuery("#opportunityListTable").jqGrid("getGridParam","postData").rows;
 		var searchString=jQuery("#opportunityListTable").jqGrid("getGridParam","postData").searchString;
 		if(typeof searchString=='undefined') {
@@ -118,22 +119,22 @@ function drawTable()
      });
 	}
 
-	function newUser()
+	function newopportunity()
 	{
-		$('#newUser').trigger("click");		
+		$('#newopportunity').trigger("click");		
 	}
 	
 function actionsLinkFormatter(cellvalue, options, rowObject)
 {
-	var userID = rowObject['userID'];
+	var opportunityID = rowObject['opportunityID'];
 	var email = rowObject['email'];
-	var userActions = 
-	/* "<a class='ui-pg-div ui-inline-edit' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='editUser(&quot;"+userID+"&quot;);'style='cursor:pointer; display: inline-table; float: none; ' title='Edit "+email+"'><span align='center' class='ui-icon ui-icon-pencil'></span></a>"+ */
-	"<a class='ui-pg-div ui-inline-del' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='deleteUser(&quot;"+userID+"&quot;);'style='display: inline-table; float: none; margin-left: 10px;' title='Delete "+email+"'><span align='center' class='ui-icon ui-icon-trash'></span></a>";
-	return userActions ;
+	var opportunityActions = 
+	/* "<a class='ui-pg-div ui-inline-edit' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='editopportunity(&quot;"+opportunityID+"&quot;);'style='cursor:pointer; display: inline-table; float: none; ' title='Edit "+email+"'><span align='center' class='ui-icon ui-icon-pencil'></span></a>"+ */
+	"<a class='ui-pg-div ui-inline-del' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='deleteopportunity(&quot;"+opportunityID+"&quot;);'style='display: inline-table; float: none; margin-left: 10px;' title='Delete "+email+"'><span align='center' class='ui-icon ui-icon-trash'></span></a>";
+	return opportunityActions ;
 }
 
-function deleteUser(userID)	
+function deleteopportunity(opportunityID)	
 {
 		var $dialog = $('<div></div>')
 		.html("Are you sure?")
@@ -145,7 +146,7 @@ function deleteUser(userID)
 			modal: true,
 			buttons: {
 				"Delete": function() {
-					var urlvalue = $("#deleteUserURLHidden").val()+"?userID="+userID;
+					var urlvalue = $("#deleteopportunityURLHidden").val()+"?opportunityID="+opportunityID;
 					var val = $.ajax( {
 						type : "POST",
 						url : urlvalue,		

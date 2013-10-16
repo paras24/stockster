@@ -14,17 +14,41 @@
   $(function() {
     $( "#datepicker" ).datepicker();
   });
+  
+  function validate()
+  {
+	  validated = true;
+	  
+	 if(document.getElementById('textName').value == null || document.getElementById('textName').value == ''){
+		  validated = false;
+		  document.getElementById("textName").style.borderColor="#FF0000";
+
+	 }
+	 else{
+		 document.getElementById("textName").style.borderColor="#CCCCCC";
+	 }
+	 
+	 if(document.getElementById('textGrade').value == null || document.getElementById('textGrade').value == ''){
+		  validated = false;
+		  document.getElementById("textGrade").style.borderColor="#FF0000";
+	 } 
+	 else{
+		 document.getElementById("textGrade").style.borderColor="#CCCCCC";
+	 }
+	  
+	  return validated;
+  }
   </script>
 </head>
 <body>
-<s:form action="editJoiningPipelineMember" >
-		<s:textfield name="joiningPipelineMemberInfo.jpmemberName" label="Name" />
-		<s:textfield name="joiningPipelineMemberInfo.Grade" label="Level" />
-		<s:textfield name="joiningPipelineMemberInfo.experience" label="Experience" />
-		<s:textfield name="joiningPipelineMemberInfo.supervisorName" label="Supervisor Name" />
-		<s:textfield name="joiningPipelineMemberInfo.status" label="Status" />
-		<s:textfield name="joiningPipelineMemberInfo.keySkills" label="Key Skills" />
-		<s:textfield name="joiningPipelineMemberInfo.dateOfJoining" id="datepicker" label="Joining Date" />
+<s:form action="editJoiningPipelineMember" onsubmit="return validate()" >
+		<s:textfield name="joiningPipelineMemberInfo.jpmemberName" label="Name" id='textName'/> <s:label><font  color="red" id="lblName"></font></s:label>
+		<s:textfield name="joiningPipelineMemberInfo.grade" label="Level" id='textGrade'/> <s:label><font  color="red" id="lblGrade"></font></s:label>
+		<s:textfield name="joiningPipelineMemberInfo.experience" label="Experience" /> <s:label id="lblExp" value=""/>
+		<s:textfield name="joiningPipelineMemberInfo.supervisorName" label="Supervisor Name" /> <s:label id="lblSupervisor" value=""/>
+		<s:textfield name="joiningPipelineMemberInfo.status" label="Status" /> <s:label id="lblStatus" value=""/>
+		<s:textfield name="joiningPipelineMemberInfo.keySkills" label="Key Skills" /> <s:label id="lblKeyskills" value=""/>
+		<s:textfield name="joiningPipelineMemberInfo.dateOfJoining" id="datepicker" label="Joining Date" /> <s:label id="lblDate" value=""/>
 <s:submit />
 </s:form>
 </body>

@@ -13,10 +13,10 @@
 
 
 <s:url var = "teamJSONURL" value="/team/listAllTeamMemberJson.action"/>
-<s:url var = "deleteTeamMemberURL" value="/team/delete.action"/>
+<s:url var = "deleteTeamMemberURL" value="/team/deleteMember.action"/>
 <input type="hidden" id="teamJSONURLHidden" value="${teamJSONURL}"/>
 
-<input type="hidden" id="deleteTeamMemberURL" value="${deleteTeamMemberURL}"/>
+<input type="hidden" id="deleteMemberURLHidden" value="${deleteTeamMemberURL}"/>
 <s:url value="/team/showTeamMemberForm.action" var="addTeamMemberFormURL" />
 <s:a href="%{addTeamMemberFormURL}">Add Member</s:a>
 <table id="teamTable">
@@ -41,15 +41,15 @@ function drawTable()
 					height:"100%",
 					sortname : 'modified',
 					sortorder : 'desc',
-					colNames:['ID','Name','Experience', 'Grade', 'Skill Set','Date Created', 'Last Modified',''],
+					colNames:['ID','Name','Experience', 'Grade', 'Skill Set','Remarks', 'Supervisor',''],
 					colModel:[
 							  {name:'memberID', hidden:true},
 							  {name:'teamMemberName' , align:'left', searchoptions:{sopt:['cn']}},
-							  {name:'experirnce' , align:'left', searchoptions:{sopt:['cn']}},
+							  {name:'experience' , align:'left', searchoptions:{sopt:['cn']}},
 							  {name:'grade' , align:'left', searchoptions:{sopt:['cn']}},
 							  {name:'keySkills' , align:'left',searchoptions:{sopt:['cn']}},
-					          {name:'created', align:'center', formatter: convertTimeStampToDate,search:false},
-					          {name:'modified', align:'center', formatter: convertTimeStampToDate,search:false},
+					          {name:'remarks', align:'center',search:false},
+					          {name:'supervisor', align:'center',search:false},
 					      	  {name:'options',index:'options',align:'center',width:70,editable: false,formatter:actionsLinkFormatter,search:false, sortable:false},				          
 					          ],
 					sortname: 'modified',
@@ -118,7 +118,7 @@ function actionsLinkFormatter(cellvalue, options, rowObject)
 	var teamMemberName = rowObject['teamMemberName'];
 	var userActions = 
 	"<a class='ui-pg-div ui-inline-edit' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='editUser(&quot;"+memberID+"&quot;);'style='cursor:pointer; display: inline-table; float: none; ' title='Edit "+teamMemberName+"'><span align='center' class='ui-icon ui-icon-pencil'></span></a>"+
-	"<a class='ui-pg-div ui-inline-del' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='deleteUser(&quot;"+memberID+"&quot;);'style='display: inline-table; float: none; margin-left: 10px;' title='Delete "+teamMemberName+"'><span align='center' class='ui-icon ui-icon-trash'></span></a>";
+	"<a class='ui-pg-div ui-inline-del' onmouseout='jQuery(this).removeClass(&quot;ui-state-hover&quot;);' onmouseover='jQuery(this).addClass(&quot;ui-state-hover&quot;);' onclick='deleteMember(&quot;"+memberID+"&quot;);'style='display: inline-table; float: none; margin-left: 10px;' title='Delete "+teamMemberName+"'><span align='center' class='ui-icon ui-icon-trash'></span></a>";
 	return userActions ;
 }
 

@@ -28,19 +28,19 @@ public class Opportunity extends DomainObject{
 	
 @Id
 @GeneratedValue(strategy=GenerationType.AUTO)
-@Column(name="Id")
-private Integer id;
+@Column(name="opportunityID")
+private Integer opportunityID;
 
-@OneToOne
+@ManyToOne
 @JoinColumn(name="Project_Id")
 private Project project;
 
 @Column(name="Sub_Project_Name")
 private String subprojectName;
 
-@OneToOne
-@JoinColumn(name="ContactPoint_Id")
-private TeamMember contactPoint;
+
+@Column(name="ContactPoint")
+private String contactPoint;
 
 @Column(name="RequestDt")
 private Date requestDate;
@@ -77,13 +77,16 @@ private String secondaryKeyskills;
 @OneToMany(fetch = FetchType.LAZY, mappedBy = "relationKey.opportunity",cascade=CascadeType.ALL)
 private Set<OpportunityMemberRelation> opportunityMemberRelation = new HashSet<OpportunityMemberRelation>(0);
 
-public Integer getId() {
-	return id;
+
+
+public Integer getOpportunityID() {
+	return opportunityID;
 }
 
-public void setId(Integer id) {
-	this.id = id;
+public void setOpportunityID(Integer opportunityID) {
+	this.opportunityID = opportunityID;
 }
+
 
 public Project getProject() {
 	return project;
@@ -101,12 +104,14 @@ public void setSubprojectName(String subprojectName) {
 	this.subprojectName = subprojectName;
 }
 
-public TeamMember getContactPoint() {
-	return contactPoint;
+
+
+public void setContactPoint(String contactPoint) {
+	this.contactPoint = contactPoint;
 }
 
-public void setContactPoint(TeamMember contactPoint) {
-	this.contactPoint = contactPoint;
+public String getContactPoint() {
+	return contactPoint;
 }
 
 public Date getRequestDate() {
@@ -164,14 +169,14 @@ public String getRequirementStatus() {
 public void setRequirementStatus(String requirementStatus) {
 	this.requirementStatus = requirementStatus;
 }
-
+/*
 public Set<OpportunityRemarks> getOpportunityRemarks() {
 	return opportunityRemarks;
 }
 
 public void setOpportunityRemarks(Set<OpportunityRemarks> opportunityRemarks) {
 	this.opportunityRemarks = opportunityRemarks;
-}
+}*/
 
 public void setPrimaryKeyskills(String primaryKeyskills) {
 	this.primaryKeyskills = primaryKeyskills;
@@ -188,14 +193,14 @@ public void setSecondaryKeyskills(String secondaryKeyskills) {
 public String getSecondaryKeyskills() {
 	return secondaryKeyskills;
 }
-
+/*
 public void setOpportunityMemberRelation(Set<OpportunityMemberRelation> opportunityMemberRelation) {
 	this.opportunityMemberRelation = opportunityMemberRelation;
 }
 
 public Set<OpportunityMemberRelation> getOpportunityMemberRelation() {
 	return opportunityMemberRelation;
-}
+}*/
 
 
 

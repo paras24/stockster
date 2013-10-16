@@ -8,12 +8,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<s:form action="addTeamMember" >
-		<s:textfield name="teamMemberInfo.teamMemberName" label="Name" />
-		<s:textfield name="teamMemberInfo.grade" label="Level" />
-		<s:textfield name="teamMemberInfo.experience" label="Experience" />
-		<s:textfield name="teamMemberInfo.groupHeadName" label="GroupHeadName" />
-		<s:textfield name="teamMemberInfo.status" label="Status" />
+<s:form action="addTeamMember" theme="bootstrap" cssClass="form-horizontal">
+<s:actionerror theme="bootstrap"/>
+		<s:textfield name="teamMemberName" label="Name" />
+		<s:textfield name="grade" label="Level" />
+		<s:textfield name="experience" label="Experience" />
+		<s:textfield name="supervisor" label="Supervisor Name" />
+		<s:textfield name="status" label="Status" />
+		<s:textarea name="keySkills" label="Key Skills"/>
+		<s:textarea name="remarks" label="Remarks"/>
 		
 <s:submit />
 </s:form>
