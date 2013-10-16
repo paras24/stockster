@@ -33,9 +33,11 @@ public class OpportunityDAOImpl implements OpportunityDAO {
 			org.hibernate.Query query= session.createQuery("from Opportunity");
 			//query.setMaxResults(queryParameterDTO.getDisplayLength());
 			//query.setFirstResult(queryParameterDTO.getDisplayStart());
-			opportunityList=(ArrayList<Opportunity>) query.list();		
+			opportunityList=(ArrayList<Opportunity>) query.list();	
+			List<BigInteger> totalDisplayRecords =session.createSQLQuery("select count(*) from Opportunity").list();
 			List<BigInteger> totalRecords = session.createSQLQuery("select count(*) from Opportunity").list();
 			queryParameterDTO.setTotalRecords((totalRecords.get(0)).intValue());
+			queryParameterDTO.setTotalDisplayRecords((totalDisplayRecords.get(0)).intValue());
 			
 		}catch (Exception e) {
 			e.printStackTrace();

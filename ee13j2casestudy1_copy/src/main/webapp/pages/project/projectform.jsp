@@ -22,7 +22,6 @@ $(document).ready(function()
 	{
 	var urlvalue = $("#projectUpdateURLHiddenID").val();
 	var str = $("#newProjectForm").serialize();
-	alert(str);
 	var val = $.ajax({
 		type : "POST",
 		url : urlvalue,

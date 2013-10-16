@@ -5,8 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.Validation;
-@Validation
+
 public class TeamMemberInfo {
 	
 	
@@ -23,7 +22,7 @@ public class TeamMemberInfo {
 	private String subProject;
 	private String supervisor;
 	private List<AssignedProjectInfo> assignedProjectInfo =new ArrayList<AssignedProjectInfo>(); 
-	@RequiredFieldValidator( message = "The name is required" )
+	
 	public String getTeamMemberName() {
 		return teamMemberName;
 	}

@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 
 import com.impetus.ee.common.QueryParameterDTO;
 import com.impetus.ee.domain.opportunity.Opportunity;
-import com.impetus.ee.domain.user.User;
 import com.impetus.ee.services.api.opportunity.OpportunityService;
-import com.impetus.ee.services.api.user.UserService;
+import com.impetus.ee.vo.OpportunityInfo;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -26,7 +25,7 @@ public class RetrieveAllOpportunityAction extends ActionSupport implements Model
 {
 	@Autowired
 	private OpportunityService opportunityService;
-	private List<Opportunity> opportunities;
+	private List<OpportunityInfo> opportunities;
 	private QueryParameterDTO queryParameterDTO = new QueryParameterDTO();
 	private int currentPage;
 	private int totalPages;
@@ -35,7 +34,7 @@ public class RetrieveAllOpportunityAction extends ActionSupport implements Model
 	})
 	public String opportunityJson() 
 	{
-		List<Opportunity> opportunities= opportunityService.getOpportunities(queryParameterDTO);
+		List<OpportunityInfo> opportunities= opportunityService.getOpportunities(queryParameterDTO);
 		int modulus = queryParameterDTO.getTotalDisplayRecords()% queryParameterDTO.getDisplayLength();
 		setTotalPages(queryParameterDTO.getTotalDisplayRecords()/ queryParameterDTO.getDisplayLength());
 		if (modulus != 0 || getTotalPages() == 0) {
@@ -53,17 +52,14 @@ public class RetrieveAllOpportunityAction extends ActionSupport implements Model
 	{
 		return SUCCESS;
 	}
-	public List<Opportunity> getOpportunities() {
-		return opportunities;
-	}
 
-
-	public void setOpportunities(List<Opportunity> opportunities) {
+	public void setOpportunities(List<OpportunityInfo> opportunities) {
 		this.opportunities = opportunities;
 	}
 
-
-
+	public List<OpportunityInfo> getOpportunities() {
+		return opportunities;
+	}
 
 	public int getCurrentPage() {
 		return currentPage;
@@ -81,8 +77,9 @@ public class RetrieveAllOpportunityAction extends ActionSupport implements Model
 		this.totalPages = totalPages;
 	}
 
+	@Override
 	public Object getModel() {
-		// TODO Auto-generated method stub
-		return null;
+		return queryParameterDTO;
 	}
+
 }

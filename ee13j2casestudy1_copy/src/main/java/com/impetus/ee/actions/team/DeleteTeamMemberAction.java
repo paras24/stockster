@@ -18,7 +18,7 @@ import com.impetus.ee.services.api.teamMember.TeamMemberService;
 import com.opensymphony.xwork2.ActionSupport;
 @Component
 @Scope("prototype")
-@Namespace("/user")
+@Namespace("/team")
 @ResultPath(value="/")
 public class DeleteTeamMemberAction extends ActionSupport
 {
@@ -32,10 +32,10 @@ public class DeleteTeamMemberAction extends ActionSupport
 	public void setMemberID(long memberID) {
 		this.memberID = memberID;
 	}
-	@Action(value="delete", results={
+	@Action(value="deleteMember", results={
 			@Result(name="success",type="json")
 	})
-	public String deleteUser() 
+	public String deleteMember() 
 	{
 		System.out.println("memberID ID>> "+memberID);
 		teamMemberService.removeTeamMemberById(memberID);
